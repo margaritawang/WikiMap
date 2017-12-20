@@ -1,0 +1,14 @@
+GET '/maps'
+
+GET '/maps/:id'
+
+GET '/point/:id'
+
+//check login status
+POST '/point' // adding a point
+PUT '/point/:id' // editing an existing point
+
+PUT '/likes'
+
+GET '/user/:id' // login
+GET '/user/:id/profile' // check profile page
