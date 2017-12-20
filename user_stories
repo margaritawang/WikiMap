@@ -1,10 +1,10 @@
 as a user
 I want to see a list of catagories available
-because I'm hungry
+because i'm bored
 
 as a user
 I want to see all points available in the map
-because i want to choose a restaurant
+because i want to choose something
 
 as a user
 i want to see more details about a certain restaurant
@@ -12,7 +12,7 @@ because i want to check their menu
 
 given that i'm logged in
 when i click a button
-i can create my own fav spot AND modify my points
+i can create my own spot AND modify my points
 
 given that i clicked the fav icon
 i can save the map to my fav folder
