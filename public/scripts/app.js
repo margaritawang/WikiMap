@@ -1,4 +1,4 @@
-$(() => {
+$(document).ready(function() {
   function initMap(){
     //Map options
     var options = {
