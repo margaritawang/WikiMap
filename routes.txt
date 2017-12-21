@@ -1,16 +1,17 @@
-GET '/maps'
+GET '/maps' or '/'
 
-GET '/maps/:id'
+GET '/maps/:id' ajax
 
-GET '/point/:id'
+GET '/points/:id' ajax
 
 //check login status
-POST '/point' // adding a point
-PUT '/point/:id' // editing an existing point
+POST '/maps' ajax
+POST '/maps/:id/points' // adding a point ajax
+PUT '/points/:id' // editing an existing point ajax
+DELETE '' ajax
+POST '/likes' ajax
 
-PUT '/likes'
-
-POST '/user/:id' // login
-GET '/user/:id/profile' // check profile page
+POST '/login' // login
+GET '/users/:id' // check profile page
 
 
