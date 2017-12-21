@@ -32,17 +32,19 @@ $(document).ready(function() {
     //need a loadpoint function
   }
 
-  function createMap() {
+  function createMap(mapname) {
     $.ajax({
       method: 'POST',
-      url: '/maps'
+      url: '/maps',
+      data: mapname
     })
   }
 
-  function createPoint() {
+  function createPoint(pointInfo) {
     $.ajax({
       method: 'POST',
-      url: '/maps:id/points'
+      url: '/maps:id/points',
+      data: pointInfo
     })
   }
 

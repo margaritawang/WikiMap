@@ -14,5 +14,14 @@ module.exports = (knex) => {
     });
   });
 
+  router.post('/maps', (req, res) => {
+    //res.send('hahahafuckyou');
+    res.json({
+      "name": "amy",
+      "id": 1
+    })
+
+  })
+
   return router;
 }
