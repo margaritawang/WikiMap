@@ -9,7 +9,8 @@ function initMap(){
 
     //Listen for click on map
     google.maps.event.addListener(map, 'click', function(event){
-      addMarker({coords:event.latLng});
+        console.log(event.latLng);
+        addMarker({coords:event.latLng});
     });
     /*
     
