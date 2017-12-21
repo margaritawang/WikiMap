@@ -1,8 +1,4 @@
 $(() => {
-  $.ajax({
-    method: "GET",
-    url: "/"
-  }).done();
   function initMap(){
     //Map options
     var options = {
@@ -11,6 +7,66 @@ $(() => {
     }
     //New map
     var map = new google.maps.Map(document.getElementById('map'), options);
+  }
+
+  function loadMap() {
+    $.ajax({
+      method: "GET",
+      url: "/"
+    }).done(initMap());
+  }
+
+  function checkMap() {
+    $.ajax({
+      method: 'GET',
+      url: '/maps/:id'
+    })
+    //need a loadmap function
+  }
+
+  function checkPoint() {
+    $.ajax({
+      method: 'GET',
+      url: '/points/:id'
+    })
+    //need a loadpoint function
+  }
+
+  function createMap() {
+    $.ajax({
+      method: 'POST',
+      url: '/maps'
+    })
+  }
+
+  function createPoint() {
+    $.ajax({
+      method: 'POST',
+      url: '/maps:id/points'
+    })
+  }
+
+  function editPoint() {
+    $.ajax({
+      method: 'PUT',
+      url: '/points/:id'
+    })
+  }
+
+  function deletePoint() {
+    $.ajax({
+      method: 'DELETE',
+      url: '/points/:id'
+    })
+  }
+
+  function likePoint() {
+    $.ajax({
+      method: 'POST',
+      url: '/like',
+      data: pointInfo
+    })
+  }
 
     //Listen for click on map
     google.maps.event.addListener(map, 'click', function(event){
@@ -49,5 +105,4 @@ $(() => {
         });
       }
     }
-  }
 });
