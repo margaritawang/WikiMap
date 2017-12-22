@@ -12,9 +12,18 @@ $(document).ready(function() {
   $.ajax({
     method: "GET",
     url: "/api/"
-  }).done(function(maps) {
-    for (i in maps) {
-      $('.maplist').append($('<li>').text(maps[i].title));
+  }).done(function(templateVar) {
+    for (var i in templateVar[0]) {
+      $mapItem = $('<li>').text(templateVar[0][i].title),
+      $mapItem.data('mapid', templateVar[0][i].id)
+      $('.maplist').append($mapItem);
+    }
+    console.log(templateVar[1]);
+    for (var i in templateVar[1]) {
+      addMarker({coords:
+          {lat: templateVar[1][i].latitude,
+          lng: templateVar[1][i].longitude},
+          content: `<h2>${templateVar[1][i].title}</h2><span>${templateVar[1][i].description}</span>`})
     }
   });
 

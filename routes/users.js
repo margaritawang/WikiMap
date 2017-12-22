@@ -6,14 +6,29 @@ const router  = express.Router();
 module.exports = (knex) => {
 
   router.get("/", (req, res) => {
-    knex
+    const getMaps = knex
       .select('*')
-      .from('maps')
-      // .where('id', 1 )
+      .from('maps');
+    const getPoints = knex
+      .select('*')
+      .from ('points');
+
+    Promise.all([getMaps, getPoints])
       .then((results) => {
-        console.log(results);
-        res.json(results);
-    });
+        const maps = results[0];
+        const points = results[1];
+        res.send(results);
+        // console.log(maps);
+        // console.log(points);
+      })
+        // const mapsWithPoints = maps.map(map => {
+        //   map.points = points.filter(point => point.maps_id === map.id);
+        //   return map;
+        // res.json(results);
+        // });
+        // res.json({maps: mapsWithPoints, points});
+        // console.log(maps);
+        // console.log(points);
   });
 
   router.get('/maps/:id', (req, res) => {
