@@ -5,36 +5,38 @@ const router  = express.Router();
 
 module.exports = (knex) => {
 
-  // router.get("/", (req, res) => {
-  //   // knex
-  //   //   .select('*')
-  //   //   .from('points')
-  //   //   // .where('id', 1 )
-  //   //   .then((results) => {
-  //   //     res.json(results);
-  //   // });
-  // });
+  router.get("/", (req, res) => {
+    knex
+      .select('*')
+      .from('maps')
+      // .where('id', 1 )
+      .then((results) => {
+        console.log(results);
+        res.json(results);
+    });
+  });
 
   router.get('/maps/:id', (req, res) => {
-  // knex
-  //     .select("*")
-  //     .from("points")
-  //     .where(maps_id = req.params.id)
-  //     .then((results) => {
-  //       res.json(results);
-  //   });
+    knex
+      .select("*")
+      .from("points")
+      .where('maps_id', req.params.id)
+      .then((results) => {
+        res.json(results);
+    });
     console.log(req.params.id);
   })
 
   router.get('/points/:id', (req, res) => {
-  // knex
-  //     .select("*")
-  //     .from("points")
-  //     .where(points_id = req.params.id)
-  //     .then((results) => {
-  //       res.json(results);
-  //   });
-    res.send('got point');
+    knex
+      .select("*")
+      .from('points')
+      .where('id', req.params.id)
+      .then((results) => {
+        res.json(results);
+    });
+    console.log(req.params.id)
+    // res.send('got point');
   })
 
   router.post('/maps', (req, res) => {

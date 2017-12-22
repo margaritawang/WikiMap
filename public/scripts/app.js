@@ -9,12 +9,14 @@ $(document).ready(function() {
     var map = new google.maps.Map(document.getElementById('map'), options);
   }
 
-  function renderMap() {
-    $.ajax({
-      method: "GET",
-      url: "/"
-    }).done(initMap());
-  }
+  $.ajax({
+    method: "GET",
+    url: "/api/"
+  }).done(function(maps) {
+    for (i in maps) {
+      $('.maplist').append($('<li>').text(maps[i].title));
+    }
+  });
 
   function makeMap(mapdata) {
     var $mapItem = $('<li>').text(mapdata.name);
@@ -23,13 +25,13 @@ $(document).ready(function() {
     return $mapItem;
   }
 
-// function renderMap(maps) {
-//   $('.maplist').empty();
-//   for (var i in maps) {
-//     var $map = makeMap(maps[i]);
-//     $('.maplist').append($map);
-//   }
-// }
+function renderMap(maps) {
+  $('.maplist').empty();
+  for (var i in maps) {
+    var $map = makeMap(maps[i]);
+    $('.maplist').append($map);
+  }
+}
 
   function checkMap(mapid) {
     $.ajax({
