@@ -3,8 +3,8 @@ exports.up = function(knex, Promise) {
     table.increments('id');
     table.string('title');
     table.string('description');
-    table.integer('longitude');
-    table.integer('latitude');
+    table.float('longitude');
+    table.float('latitude');
     table.integer('users_id').unsigned();
     table.foreign('users_id').references('users.id');
     table.integer('maps_id').unsigned();
