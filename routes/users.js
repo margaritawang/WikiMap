@@ -6,12 +6,13 @@ const router  = express.Router();
 module.exports = (knex) => {
 
   // router.get("/", (req, res) => {
-  //   knex
-  //     .select("*")
-  //     .from("points")
-  //     .then((results) => {
-  //       res.json(results);
-  //   });
+  //   // knex
+  //   //   .select('*')
+  //   //   .from('points')
+  //   //   // .where('id', 1 )
+  //   //   .then((results) => {
+  //   //     res.json(results);
+  //   // });
   // });
 
   router.get('/maps/:id', (req, res) => {
@@ -38,7 +39,7 @@ module.exports = (knex) => {
 
   router.post('/maps', (req, res) => {
     // knex
-  //   .insert ({ name: req.body }).into(maps)
+    //   .insert ({ name: req.body }).into(maps)
 
     res.send('created');
   })
