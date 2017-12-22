@@ -9,8 +9,14 @@ function initMap(){
 
     //Listen for click on map
     google.maps.event.addListener(map, 'click', function(event){
-        console.log(event.latLng);
-        addMarker({coords:event.latLng});
+        var myLatLng = event.latLng;
+        var lat = myLatLng.lat();
+        var lng = myLatLng.lng();
+        addMarker({coords:myLatLng});
+    });
+
+    google.maps.event.addListener(map, 'dblclick', function(event){
+      
     });
     /*
     
@@ -41,7 +47,7 @@ function initMap(){
         });
 
         marker.addListener('click', function(){
-        infoWindow.open(map, marker);
+          infoWindow.open(map, marker);
         });
       }
     }
