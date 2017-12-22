@@ -24,5 +24,5 @@ module.exports = (knex) => {
 
   router.get
   return router;
-}
+};
 
