@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 $(document).ready(function() {
   function initMap(){
     //Map options
@@ -147,5 +148,5 @@ $(document).ready(function() {
     //   }
     // })
   })
-
 });
+
