@@ -1,7 +1,9 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('maps', function (table) {
-    table.uuid('id').primary();
+    table.increments('id');
     table.string('title');
+    table.integer('longitude');
+    table.integer('latitude');
     table.integer('users_id').unsigned();
     table.foreign('users_id').references('users.id');
   });
