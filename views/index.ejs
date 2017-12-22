@@ -19,21 +19,22 @@
       <form class="login">
         username: <input id="username" placeholder="username">
         password: <input id="password" placeholder="password">
+        <input type="submit" value="Log In">
       </form>
     </header>
     <div id="map"></div>
     <section class="maplist">
       <h2>Available Maps</h2>
       <ul>
-        <li>Burgers</li>
-        <li>Mexican</li>
-        <li>Bars</li>
-        <li>Spas</li>
+        <li data-mapid='1'>Burgers</li>
+        <li data-mapid='2'>Mexican</li>
+        <li data-mapid='3'>Bars</li>
+        <li data-mapid='4'>Spas</li>
       </ul>
     </section>
     <section class='createmap'>
       <h3>Create a new map</h3>
-      <form action='/api/users/maps' method='post'>
+      <form action='/maps' method='post'>
         <textarea name='mapname'></textarea>
         <input type="submit" value="Create Map!">
       </form>

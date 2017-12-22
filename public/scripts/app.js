@@ -16,12 +16,12 @@ $(document).ready(function() {
     }).done(initMap());
   }
 
-  function checkMap() {
+  function checkMap(mapid) {
     $.ajax({
       method: 'GET',
-      url: '/maps/:id'
+      url: '/maps/' + mapid
     })
-    //need a loadmap function
+    //need a filterpoint function
   }
 
   function checkPoint() {
@@ -107,4 +107,9 @@ $(document).ready(function() {
         });
       }
     }
+
+  $('li').on('click', function(event) {
+    event.preventDefault();
+    checkMap($(this).data().mapid);
+  })
 });
