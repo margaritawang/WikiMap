@@ -53,8 +53,12 @@ $(document).ready(function() {
       url: '/maps',
       data: mapname
     }).done(function() {
+      // renderAlllocs();
+
+      console.log(mapname);
       $('.maplist').append(mapname);
-    })
+      $('.newmap')[0].reset();
+    });
   }
 
   function createPoint(pointInfo) {
@@ -104,7 +108,7 @@ $(document).ready(function() {
 
     addMarker({
       coords:{lat:49.2819, lng:-123.1083},
-      content: '<h3>Lighthouse Labs</h3>'
+      content: '<h3>Lighthouse Labs</h3> <p>Coding bootcamp for dummies</p>'
       });
 
     function addMarker(props){

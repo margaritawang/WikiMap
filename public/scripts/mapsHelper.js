@@ -3,7 +3,7 @@ function initMap(){
     var options = {
       zoom:13,
       center: {lat:49.2827,lng:-123.1207}
-    } 
+    }
     //New map
     var map = new google.maps.Map(document.getElementById('map'), options);
 
@@ -12,7 +12,7 @@ function initMap(){
       addMarker({coords:event.latLng});
     });
     /*
-    
+
     var infoWindow = new google.maps.InfoWindow({
       content:'<h1>New Westminster</h1>'
     });
@@ -23,15 +23,15 @@ function initMap(){
     */
 
     addMarker({
-      coords:{lat:49.2819, lng:-123.1083}, 
-      content: '<h2>Lighthouse Labs</h2>'
+      coords:{lat:49.2819, lng:-123.1083},
+      content: '<h4>Lighthouse Labs</h4> <p>Coding bootcamp for dummies</p>'
       });
 
     function addMarker(props){
       var marker = new google.maps.Marker({
       position:props.coords,
       map:map
-       
+
       });
 
       if(props.content){

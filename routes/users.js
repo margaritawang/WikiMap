@@ -8,21 +8,38 @@ module.exports = (knex) => {
   // router.get("/", (req, res) => {
   //   knex
   //     .select("*")
-  //     .from("users")
+  //     .from("points")
   //     .then((results) => {
   //       res.json(results);
   //   });
   // });
 
   router.get('/maps/:id', (req, res) => {
+  // knex
+  //     .select("*")
+  //     .from("points")
+  //     .where(maps_id = req.params.id)
+  //     .then((results) => {
+  //       res.json(results);
+  //   });
     console.log(req.params.id);
   })
 
   router.get('/points/:id', (req, res) => {
+  // knex
+  //     .select("*")
+  //     .from("points")
+  //     .where(points_id = req.params.id)
+  //     .then((results) => {
+  //       res.json(results);
+  //   });
     res.send('got point');
   })
 
   router.post('/maps', (req, res) => {
+    // knex
+  //   .insert ({ name: req.body }).into(maps)
+
     res.send('created');
   })
 
@@ -43,6 +60,7 @@ module.exports = (knex) => {
 
   router.get('/users/:id', (req, res) => {
     console.log('userid: ' + req.params.id);
+    res.render('profilev2');
   })
 
 
