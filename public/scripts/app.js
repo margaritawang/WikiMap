@@ -9,16 +9,21 @@ $(document).ready(function() {
     var map = new google.maps.Map(document.getElementById('map'), options);
   }
 
+  // var mapTitle;
+  // var mapID;
   $.ajax({
     method: "GET",
     url: "/api/"
   }).done(function(templateVar) {
     for (var i in templateVar[0]) {
-      $mapItem = $('<li>').text(templateVar[0][i].title),
-      $mapItem.data('mapid', templateVar[0][i].id)
+      var mapTitle = templateVar[0][i].title;
+      var mapID = templateVar[0][i].id;
+      $mapItem = $('<li>').text(mapTitle),
+      $mapItem.data('mapid', mapID)
+      console.log($mapItem.data());
       $('.maplist').append($mapItem);
     }
-    console.log(templateVar[1]);
+
     for (var i in templateVar[1]) {
       addMarker({coords:
           {lat: templateVar[1][i].latitude,
@@ -27,28 +32,45 @@ $(document).ready(function() {
     }
   });
 
-  function makeMap(mapdata) {
-    var $mapItem = $('<li>').text(mapdata.name);
-    $mapItem.data('mapid', mapdata.id);
+//   function makeMap(mapdata) {
+//     var $mapItem = $('<li>').text(mapdata.name);
+//     $mapItem.data('mapid', mapdata.id);
 
-    return $mapItem;
-  }
+//     return $mapItem;
+//   }
 
-function renderMap(maps) {
-  $('.maplist').empty();
-  for (var i in maps) {
-    var $map = makeMap(maps[i]);
-    $('.maplist').append($map);
+// function renderMap(maps) {
+//   $('.maplist').empty();
+//   for (var i in maps) {
+//     var $map = makeMap(maps[i]);
+//     $('.maplist').append($map);
+//   }
+// }
+
+  function filterPoints(points) {
+    for (var i in points) {
+      addMarker({coords:
+          {lat: points[i].latitude,
+          lng: points[i].longitude},
+          content: `<h2>${points[i].title}</h2><span>${points[i].description}</span>`})
+    }
   }
-}
 
   function checkMap(mapid) {
     $.ajax({
       method: 'GET',
-      url: '/maps/' + mapid
-    })
-    //need a filterpoint function
+      url: '/api/maps/' + mapid,
+      data: templateVar
+    }).done(filterPoints(templateVar))
   }
+
+
+  $('li').on('click', function(event) {
+    event.preventDefault();
+    console.log('clicked');
+    console.log($(this));
+    // ($(this).data());
+  })
 
   function checkPoint(pointid) {
     $.ajax({
