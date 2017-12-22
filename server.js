@@ -36,7 +36,7 @@ app.use("/styles", sass({
 app.use(express.static("public"));
 
 // Mount all resource routes
-app.use("/api/users", usersRoutes(knex));
+app.use("/", usersRoutes(knex));
 
 // Home page
 app.get("/", (req, res) => {
@@ -46,3 +46,7 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
+
+app.get("/profile", (req, res) => {
+    res.render("profile");
+})
