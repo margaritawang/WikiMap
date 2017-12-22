@@ -9,12 +9,27 @@ $(document).ready(function() {
     var map = new google.maps.Map(document.getElementById('map'), options);
   }
 
-  function loadMap() {
+  function renderMap() {
     $.ajax({
       method: "GET",
       url: "/"
     }).done(initMap());
   }
+
+  function makeMap(mapdata) {
+    var $mapItem = $('<li>').text(mapdata.name);
+    $mapItem.data('mapid', mapdata.id);
+
+    return $mapItem;
+  }
+
+// function renderMap(maps) {
+//   $('.maplist').empty();
+//   for (var i in maps) {
+//     var $map = makeMap(maps[i]);
+//     $('.maplist').append($map);
+//   }
+// }
 
   function checkMap(mapid) {
     $.ajax({
@@ -24,10 +39,10 @@ $(document).ready(function() {
     //need a filterpoint function
   }
 
-  function checkPoint() {
+  function checkPoint(pointid) {
     $.ajax({
       method: 'GET',
-      url: '/points/:id'
+      url: '/points/' + pointid
     })
     //need a loadpoint function
   }
@@ -37,6 +52,8 @@ $(document).ready(function() {
       method: 'POST',
       url: '/maps',
       data: mapname
+    }).done(function() {
+      $('.maplist').append(mapname);
     })
   }
 
@@ -87,7 +104,7 @@ $(document).ready(function() {
 
     addMarker({
       coords:{lat:49.2819, lng:-123.1083},
-      content: '<h2>Lighthouse Labs</h2>'
+      content: '<h3>Lighthouse Labs</h3>'
       });
 
     function addMarker(props){
@@ -112,4 +129,19 @@ $(document).ready(function() {
     event.preventDefault();
     checkMap($(this).data().mapid);
   })
+
+  $('.newmap').on('submit', function(event) {
+    event.preventDefault();
+    console.log($(this).serialize());
+    createMap($(this).serialize());
+    // $.ajax({
+    //   method: "POST",
+    //   url: "/maps",
+    //   data: $(this).serialize(),
+    //   success: (data) => {
+    //     console.log("goood");
+    //   }
+    // })
+  })
+
 });

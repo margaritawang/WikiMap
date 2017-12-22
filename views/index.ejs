@@ -23,9 +23,9 @@
       </form>
     </header>
     <div id="map"></div>
-    <section class="maplist">
+    <section class="maps">
       <h2>Available Maps</h2>
-      <ul>
+      <ul class='maplist'>
         <li data-mapid='1'>Burgers</li>
         <li data-mapid='2'>Mexican</li>
         <li data-mapid='3'>Bars</li>
@@ -34,7 +34,7 @@
     </section>
     <section class='createmap'>
       <h3>Create a new map</h3>
-      <form action='/maps' method='post'>
+      <form class='newmap'>
         <textarea name='mapname'></textarea>
         <input type="submit" value="Create Map!">
       </form>
