@@ -60,6 +60,7 @@ module.exports = (knex) => {
 
   router.post('/maps', (req, res) => {
     knex('maps')
+      .returning('id')
       .insert({
         users_id: 1000002,
         title: req.body.mapname,
@@ -67,25 +68,28 @@ module.exports = (knex) => {
         latitude: 49.246292
       }).
       // catch((err) => console.log(err)).
-      then(() => {
-        res.send('created');
+      then(function(id) {
+        console.log("id=",id);
+        console.log("typeof id=", typeof id);        
+        res.json(id);
       })
       // .into('maps')
     // console.log('mapname='+req.body.mapname);
     // res.send('created');
   })
 
-  router.post('/maps/:id/points', (req, res) => {
-    // knex('points')
-    // .insert({
-    //   users_id: 1000002,
-    //   title: '',
-    //   description: '',
-    //   longitude: ,
-    //   latitude: ,
-    //   maps_id: ''
-    // })
-    res.send('created points');
+  router.post('/maps:id/points', (req, res) => {
+    knex('points')
+    .insert({
+      users_id: req.body.users_id,
+      title: req.body.title,
+       description: req.body.description,
+       longitude: req.body.longitude,
+       latitude: req.body.latitude,
+       maps_id: req.body.maps_id
+     }).then(() => {
+       res.send(201);
+     })
   })
 
   router.post('/like', (req, res) => {

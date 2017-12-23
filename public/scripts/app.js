@@ -1,5 +1,5 @@
 $(document).ready(function() {
-
+  
   // load a list of available maps with all points on the home page
   function loadMap() {
     $.ajax({
@@ -7,7 +7,7 @@ $(document).ready(function() {
       url: "/api/"
     }).done(function(templateVar) {
       $('.maplist').empty();
-
+      
       for (var i in templateVar[0]) {
         var mapTitle = templateVar[0][i].title;
         var mapID = templateVar[0][i].id;
@@ -15,19 +15,22 @@ $(document).ready(function() {
         $mapItem.data('mapid', mapID)
         $('.maplist').append($mapItem);
       }
-
+      
       for (var i in templateVar[1]) {
         addMarker({coords:
-            {lat: templateVar[1][i].latitude,
+          {lat: templateVar[1][i].latitude,
             lng: templateVar[1][i].longitude},
             content: `<h2>${templateVar[1][i].title}</h2><span>${templateVar[1][i].description}</span>`})
-      }
+          }
     });
-
+        
   }
-
+      
   loadMap();
-
+  
+  var currentUser;
+  var currentMap;
+      
   // filter points within a specific map
   function filterPoints(points) {
     // console.log(mapid);
@@ -35,12 +38,12 @@ $(document).ready(function() {
       addMarker({
         coords:
           {lat: points[i].latitude,
-           lng: points[i].longitude},
-          content: `<h2>${points[i].title}</h2><span>${points[i].description}</span>`
-        })
+          lng: points[i].longitude},
+        content: `<h2>${points[i].title}</h2><span>${points[i].description}</span>`
+      })
     }
   }
-
+        
   // check points in a map
   function checkMap(mapid) {
     $.ajax({
@@ -55,14 +58,13 @@ $(document).ready(function() {
       // console.log("data",data);
     })
   }
-
-  var currentMap;
+        
   $('.maplist').on('click', 'li', function(event) {
     event.preventDefault();
     currentMap = $(this).data().mapid;
     checkMap(currentMap);
   })
-
+    
   function checkPoint(pointid) {
     $.ajax({
       method: 'GET',
@@ -70,13 +72,15 @@ $(document).ready(function() {
     })
     //need a loadpoint function
   }
-
+  
   function createMap(mapname) {
     $.ajax({
       method: 'POST',
       url: '/api/maps',
       data: mapname
-    }).done(function() {
+    }).done(function(id) {
+      const newID = id[0];
+      currentMap = newID;
       deleteMarkers();
       var $mapname = $('<li>').text(mapname.split('=').slice(1));
         $('.maplist').append($mapname);
@@ -87,7 +91,7 @@ $(document).ready(function() {
   function createPoint(pointInfo) {
     $.ajax({
       method: 'POST',
-      url: '/maps:id/points',
+      url: '/api/maps:id/points',
       data: pointInfo
     })
   }
@@ -126,6 +130,7 @@ $(document).ready(function() {
           addMarker({coords: myLatLng});
         }
       }
+      console.log('currentMap click event=', currentMap);
       var point = {
         title: title,
         description: description,
@@ -138,7 +143,7 @@ $(document).ready(function() {
         content:`<h3>${title}</h3><p>${description}</p>`
       })
       console.log(point);
-      //createPoint(point);
+      createPoint(point);
 
       //console.log("title:", title);
       //console.log("description:", description);
@@ -146,7 +151,7 @@ $(document).ready(function() {
   });
 
   google.maps.event.addListener(map, 'dblclick', function(event){
-    
+
   })
     /*
     var infoWindow = new google.maps.InfoWindow({

@@ -10,11 +10,7 @@ function addMarker(props){
   if(props.content){
     var infoWindow = new google.maps.InfoWindow({
       content:props.content
-    });
-
-    marker.addListener('click', function(){
-      infoWindow.open(map, marker);
-    });
+    });  
   }
   markers.push(marker);
 }
@@ -42,12 +38,5 @@ function initMap() {
   }
   //New map
   map = new google.maps.Map(document.getElementById('map'), options);
-
-
-
-  addMarker({
-    coords:{lat:49.2819, lng:-123.1083},
-    content: '<h4>Lighthouse Labs</h4> <p>Coding bootcamp for dummies</p>'
-  });
 
 }
