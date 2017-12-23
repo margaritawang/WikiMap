@@ -70,7 +70,7 @@ module.exports = (knex) => {
         // .where('title', req.body.mapname)
         // .then((results) => {
         //   console.log(results);
-          res.send(results);
+          res.send('good');
         // })
       })
       // .into('maps')
@@ -85,13 +85,6 @@ module.exports = (knex) => {
   router.post('/like', (req, res) => {
     res.send('liked');
   })
-
-  router.get('/login/:id', (req, res) => {
-    // req.session.user_id = req.params.id;
-    console.log('here');
-    console.log(req.params.id);
-    res.redirect('/');
-});
 
   router.get('/users/:id', (req, res) => {
     console.log('userid: ' + req.params.id);
