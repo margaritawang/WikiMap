@@ -56,7 +56,14 @@ $(document).ready(function() {
 
   $('.maplist').on('click', 'li', function(event) {
     event.preventDefault();
+    console.log($(this).data().mapid);
     checkMap($(this).data().mapid);
+  })
+
+  $('#map').on('click', function(event) {
+    event.preventDefault();
+    var pointdetail = addMarkerOnMap($(this).data().mapid);
+    createPoint(($(this).data().mapid), pointdetail);
   })
 
   function checkPoint(pointid) {
@@ -80,18 +87,18 @@ $(document).ready(function() {
     });
   }
 
-  function createPoint(pointInfo) {
+  function createPoint(mapid, pointInfo) {
     $.ajax({
       method: 'POST',
-      url: '/maps:id/points',
+      url: '/api/maps/' + mapid + '/points',
       data: pointInfo
-    })
+    });
   }
 
   function editPoint() {
     $.ajax({
       method: 'PUT',
-      url: '/points/:id'
+      url: '/api/points/:id'
     })
   }
 
@@ -110,61 +117,46 @@ $(document).ready(function() {
     })
   }
 
-    //Listen for click on map
-    google.maps.event.addListener(map, 'click', function(event){
-      addMarker({coords:event.latLng});
-    });
-    /*
+    // Listen for click on map
+    // var currentMap;
+    // $('.maplist').on('click', 'li', function(event) {
+    //   event.preventDefault();
+    //   currentMap = $(this).data().mapid;
+    //   checkMap(currentMap);
+    // })
 
-    var infoWindow = new google.maps.InfoWindow({
-      content:'<h1>New Westminster</h1>'
-    });
-
-    marker.addListener('click', function(){
-      infoWindow.open(map, marker);
-    });
-    */
-
-    addMarker({
-      coords:{lat:49.2819, lng:-123.1083},
-      content: '<h3>Lighthouse Labs</h3> <p>Coding bootcamp for dummies</p>'
-      });
-
-    // function addMarker(props){
-    //   var marker = new google.maps.Marker({
-    //   position:props.coords,
-    //   map:map
-
-    //   });
-
-    //   if(props.content){
-    //     var infoWindow = new google.maps.InfoWindow({
-    //     content:props.content
-    //     });
-
-    //     marker.addListener('click', function(){
-    //     infoWindow.open(map, marker);
-    //     });
+    // google.maps.event.addListener(map, 'click', function(event){
+    //   var myLatLng = event.latLng;
+    //   var lat = myLatLng.lat();
+    //   var lng = myLatLng.lng();
+    //   var title = prompt("Give a title for your marker:");
+    //   if(title != null){
+    //     var description = prompt('Now, give us a description:');
+    //     if(description != null){
+    //       addMarker({coords: myLatLng});
+    //     }
     //   }
-    // }
+    //   var point = {
+    //     title: title,
+    //     description: description,
+    //     maps_id: currentMap,
+    //     latitude: lat,
+    //     longitude: lng,
+    //     users_id: 1000001
+    //   }
+    //   var infoWindow = new google.maps.InfoWindow({
+    //     content:`<h3>${title}</h3><p>${description}</p>`
+    //   })
+    //   console.log(point);
+    // });
 
-  $('li').on('click', function(event) {
-    event.preventDefault();
-    checkMap($(this).data().mapid);
-  })
+
+
 
   $('.newmap').on('submit', function(event) {
     event.preventDefault();
     // console.log($(this).serialize());
     createMap($(this).serialize());
-    // $.ajax({
-    //   method: "POST",
-    //   url: "/maps",
-    //   data: $(this).serialize(),
-    //   success: (data) => {
-    //     console.log("goood");
-    //   }
-    // })
   })
-});
 
+});

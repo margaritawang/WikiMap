@@ -34,6 +34,36 @@ function deleteMarkers() {
   markers = [];
 }
 
+function addMarkerOnMap(mapid) {
+
+    google.maps.event.addListener(map, 'click', function(event){
+      var myLatLng = event.latLng;
+      var lat = myLatLng.lat();
+      var lng = myLatLng.lng();
+      var title = prompt("Give a title for your marker:");
+      if(title != null){
+        var description = prompt('Now, give us a description:');
+        if(description != null){
+          addMarker({coords: myLatLng});
+        }
+      }
+      var point = {
+        title: title,
+        description: description,
+        maps_id: mapid,
+        latitude: lat,
+        longitude: lng,
+        users_id: 1000001
+      }
+      var infoWindow = new google.maps.InfoWindow({
+        content:`<h3>${title}</h3><p>${description}</p>`
+      })
+      console.log(point);
+      return point;
+    });
+
+}
+
 function initMap() {
   //Map options
   var options = {

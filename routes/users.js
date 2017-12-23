@@ -50,7 +50,7 @@ module.exports = (knex) => {
       .then((results) => {
         res.json(results);
     });
-    console.log(req.params.id)
+    // console.log(req.params.id)
     // res.send('got point');
   })
 
@@ -64,7 +64,14 @@ module.exports = (knex) => {
       }).
       // catch((err) => console.log(err)).
       then(() => {
-        res.send('created');
+        // knex
+        // .select('id')
+        // .from('maps')
+        // .where('title', req.body.mapname)
+        // .then((results) => {
+        //   console.log(results);
+          res.send(results);
+        // })
       })
       // .into('maps')
     // console.log('mapname='+req.body.mapname);
@@ -72,7 +79,7 @@ module.exports = (knex) => {
   })
 
   router.post('/maps/:id/points', (req, res) => {
-    res.send('created points');
+    console.log('created points');
   })
 
   router.post('/like', (req, res) => {
@@ -96,7 +103,10 @@ module.exports = (knex) => {
     res.send('ok');
   })
 
-  router.get('/points/:id', (req, res) => {
+  router.put('/points/:id', (req, res) => {
+    knex('points')
+    .where({id: req.params.id})
+    .update({ description: req.body})
     res.send('got point');
   })
 
