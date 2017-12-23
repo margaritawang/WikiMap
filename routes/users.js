@@ -55,8 +55,8 @@ module.exports = (knex) => {
   })
 
   router.post('/maps', (req, res) => {
-    // knex
-    //   .insert ({ name: req.body }).into(maps)
+    knex
+      // .insert ({ name: req.body }).into(maps)
 
     res.send('created');
   })

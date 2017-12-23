@@ -1,18 +1,18 @@
 $(document).ready(function() {
 
+  // load a list of available maps with all points on the home page
   function loadMap() {
     $.ajax({
       method: "GET",
       url: "/api/"
     }).done(function(templateVar) {
-      // console.log('inside ajax');
       $('.maplist').empty();
+
       for (var i in templateVar[0]) {
         var mapTitle = templateVar[0][i].title;
         var mapID = templateVar[0][i].id;
         $mapItem = $('<li>').text(mapTitle),
         $mapItem.data('mapid', mapID)
-        // console.log($mapItem.data());
         $('.maplist').append($mapItem);
       }
 
@@ -27,30 +27,21 @@ $(document).ready(function() {
   }
 
   loadMap();
-//   function makeMap(mapdata) {
-//     var $mapItem = $('<li>').text(mapdata.name);
-//     $mapItem.data('mapid', mapdata.id);
 
-//     return $mapItem;
-//   }
-
-// function renderMap(maps) {
-//   $('.maplist').empty();
-//   for (var i in maps) {
-//     var $map = makeMap(maps[i]);
-//     $('.maplist').append($map);
-//   }
-// }
-
+  // filter points within a specific map
   function filterPoints(points) {
+    // console.log(mapid);
     for (var i in points) {
-      addMarker({coords:
+      addMarker({
+        coords:
           {lat: points[i].latitude,
-          lng: points[i].longitude},
-          content: `<h2>${points[i].title}</h2><span>${points[i].description}</span>`})
+           lng: points[i].longitude},
+          content: `<h2>${points[i].title}</h2><span>${points[i].description}</span>`
+        })
     }
   }
 
+  // check points in a map
   function checkMap(mapid) {
     $.ajax({
       method: 'GET',
@@ -58,7 +49,7 @@ $(document).ready(function() {
     }).done(function (data) {
       deleteMarkers();
       filterPoints(data);
-      console.log("data",data);
+      // console.log("data",data);
     })
   }
 
@@ -79,13 +70,13 @@ $(document).ready(function() {
   function createMap(mapname) {
     $.ajax({
       method: 'POST',
-      url: '/maps',
+      url: '/api/maps',
       data: mapname
-    }).done(function() {
-      // renderAlllocs();
 
-      console.log(mapname);
-      $('.maplist').append(mapname);
+    }).done(function() {
+      deleteMarkers();
+      var $mapname = $('<li>').text(mapname.split('=').slice(1));
+      $('.maplist').append($mapname);
       $('.newmap')[0].reset();
     });
   }
