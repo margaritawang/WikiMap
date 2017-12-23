@@ -54,7 +54,7 @@ module.exports = (knex) => {
       .then((results) => {
         res.json(results);
     });
-    console.log(req.params.id)
+    // console.log(req.params.id)
     // res.send('got point');
   })
 
@@ -68,16 +68,29 @@ module.exports = (knex) => {
         latitude: 49.246292
       }).
       // catch((err) => console.log(err)).
+<<<<<<< HEAD
       then(function(id) {
         console.log("id=",id);
         console.log("typeof id=", typeof id);        
         res.json(id);
+=======
+      then(() => {
+        // knex
+        // .select('id')
+        // .from('maps')
+        // .where('title', req.body.mapname)
+        // .then((results) => {
+        //   console.log(results);
+          res.send('good');
+        // })
+>>>>>>> 4a8e8a6dc6b46080c534346dc51943228a922582
       })
       // .into('maps')
     // console.log('mapname='+req.body.mapname);
     // res.send('created');
   })
 
+<<<<<<< HEAD
   router.post('/maps:id/points', (req, res) => {
     knex('points')
     .insert({
@@ -90,18 +103,15 @@ module.exports = (knex) => {
      }).then(() => {
        res.send(201);
      })
+=======
+  router.post('/maps/:id/points', (req, res) => {
+    console.log('created points');
+>>>>>>> 4a8e8a6dc6b46080c534346dc51943228a922582
   })
 
   router.post('/like', (req, res) => {
     res.send('liked');
   })
-
-  router.get('/login/:id', (req, res) => {
-    // req.session.user_id = req.params.id;
-    console.log('here');
-    console.log(req.params.id);
-    res.redirect('/');
-});
 
   router.get('/users/:id', (req, res) => {
     console.log('userid: ' + req.params.id);
@@ -113,7 +123,10 @@ module.exports = (knex) => {
     res.send('ok');
   })
 
-  router.get('/points/:id', (req, res) => {
+  router.put('/points/:id', (req, res) => {
+    knex('points')
+    .where({id: req.params.id})
+    .update({ description: req.body})
     res.send('got point');
   })
 

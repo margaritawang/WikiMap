@@ -61,10 +61,23 @@ $(document).ready(function() {
         
   $('.maplist').on('click', 'li', function(event) {
     event.preventDefault();
+<<<<<<< HEAD
     currentMap = $(this).data().mapid;
     checkMap(currentMap);
   })
     
+=======
+    console.log($(this).data().mapid);
+    checkMap($(this).data().mapid);
+  })
+
+  $('#map').on('click', function(event) {
+    event.preventDefault();
+    var pointdetail = addMarkerOnMap($(this).data().mapid);
+    createPoint(($(this).data().mapid), pointdetail);
+  })
+
+>>>>>>> 4a8e8a6dc6b46080c534346dc51943228a922582
   function checkPoint(pointid) {
     $.ajax({
       method: 'GET',
@@ -88,18 +101,22 @@ $(document).ready(function() {
     });
   }
 
-  function createPoint(pointInfo) {
+  function createPoint(mapid, pointInfo) {
     $.ajax({
       method: 'POST',
+<<<<<<< HEAD
       url: '/api/maps:id/points',
+=======
+      url: '/api/maps/' + mapid + '/points',
+>>>>>>> 4a8e8a6dc6b46080c534346dc51943228a922582
       data: pointInfo
-    })
+    });
   }
 
   function editPoint() {
     $.ajax({
       method: 'PUT',
-      url: '/points/:id'
+      url: '/api/points/:id'
     })
   }
 
@@ -118,6 +135,7 @@ $(document).ready(function() {
     })
   }
 
+<<<<<<< HEAD
     //Listen for click on map
     google.maps.event.addListener(map, 'click', function(event){
       var myLatLng = event.latLng;
@@ -172,37 +190,48 @@ $(document).ready(function() {
     //   var marker = new google.maps.Marker({
     //   position:props.coords,
     //   map:map
+=======
+    // Listen for click on map
+    // var currentMap;
+    // $('.maplist').on('click', 'li', function(event) {
+    //   event.preventDefault();
+    //   currentMap = $(this).data().mapid;
+    //   checkMap(currentMap);
+    // })
+>>>>>>> 4a8e8a6dc6b46080c534346dc51943228a922582
 
-    //   });
-
-    //   if(props.content){
-    //     var infoWindow = new google.maps.InfoWindow({
-    //     content:props.content
-    //     });
-
-    //     marker.addListener('click', function(){
-    //     infoWindow.open(map, marker);
-    //     });
+    // google.maps.event.addListener(map, 'click', function(event){
+    //   var myLatLng = event.latLng;
+    //   var lat = myLatLng.lat();
+    //   var lng = myLatLng.lng();
+    //   var title = prompt("Give a title for your marker:");
+    //   if(title != null){
+    //     var description = prompt('Now, give us a description:');
+    //     if(description != null){
+    //       addMarker({coords: myLatLng});
+    //     }
     //   }
-    // }
+    //   var point = {
+    //     title: title,
+    //     description: description,
+    //     maps_id: currentMap,
+    //     latitude: lat,
+    //     longitude: lng,
+    //     users_id: 1000001
+    //   }
+    //   var infoWindow = new google.maps.InfoWindow({
+    //     content:`<h3>${title}</h3><p>${description}</p>`
+    //   })
+    //   console.log(point);
+    // });
 
-  $('li').on('click', function(event) {
-    event.preventDefault();
-    checkMap($(this).data().mapid);
-  })
+
+
 
   $('.newmap').on('submit', function(event) {
     event.preventDefault();
     // console.log($(this).serialize());
     createMap($(this).serialize());
-    // $.ajax({
-    //   method: "POST",
-    //   url: "/maps",
-    //   data: $(this).serialize(),
-    //   success: (data) => {
-    //     console.log("goood");
-    //   }
-    // })
   })
-});
 
+});
