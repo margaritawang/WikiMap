@@ -1,37 +1,32 @@
 $(document).ready(function() {
-  function initMap(){
-    //Map options
-    var options = {
-      zoom:13,
-      center: {lat:49.2827,lng:-123.1207}
-    }
-    //New map
-    var map = new google.maps.Map(document.getElementById('map'), options);
+
+  function loadMap() {
+    $.ajax({
+      method: "GET",
+      url: "/api/"
+    }).done(function(templateVar) {
+      // console.log('inside ajax');
+      $('.maplist').empty();
+      for (var i in templateVar[0]) {
+        var mapTitle = templateVar[0][i].title;
+        var mapID = templateVar[0][i].id;
+        $mapItem = $('<li>').text(mapTitle),
+        $mapItem.data('mapid', mapID)
+        // console.log($mapItem.data());
+        $('.maplist').append($mapItem);
+      }
+
+      for (var i in templateVar[1]) {
+        addMarker({coords:
+            {lat: templateVar[1][i].latitude,
+            lng: templateVar[1][i].longitude},
+            content: `<h2>${templateVar[1][i].title}</h2><span>${templateVar[1][i].description}</span>`})
+      }
+    });
+
   }
 
-  // var mapTitle;
-  // var mapID;
-  $.ajax({
-    method: "GET",
-    url: "/api/"
-  }).done(function(templateVar) {
-    for (var i in templateVar[0]) {
-      var mapTitle = templateVar[0][i].title;
-      var mapID = templateVar[0][i].id;
-      $mapItem = $('<li>').text(mapTitle),
-      $mapItem.data('mapid', mapID)
-      console.log($mapItem.data());
-      $('.maplist').append($mapItem);
-    }
-
-    for (var i in templateVar[1]) {
-      addMarker({coords:
-          {lat: templateVar[1][i].latitude,
-          lng: templateVar[1][i].longitude},
-          content: `<h2>${templateVar[1][i].title}</h2><span>${templateVar[1][i].description}</span>`})
-    }
-  });
-
+  loadMap();
 //   function makeMap(mapdata) {
 //     var $mapItem = $('<li>').text(mapdata.name);
 //     $mapItem.data('mapid', mapdata.id);
@@ -60,16 +55,16 @@ $(document).ready(function() {
     $.ajax({
       method: 'GET',
       url: '/api/maps/' + mapid,
-      data: templateVar
-    }).done(filterPoints(templateVar))
+    }).done(function (data) {
+      filterPoints(data);
+      console.log("data",data);
+    })
   }
 
 
-  $('li').on('click', function(event) {
+  $('.maplist').on('click', 'li', function(event) {
     event.preventDefault();
-    console.log('clicked');
-    console.log($(this));
-    // ($(this).data());
+    checkMap($(this).data().mapid);
   })
 
   function checkPoint(pointid) {

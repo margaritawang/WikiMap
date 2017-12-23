@@ -37,16 +37,7 @@ function initMap() {
   google.maps.event.addListener(map, 'dblclick', function(event){
 
   });
-  /*
 
-  var infoWindow = new google.maps.InfoWindow({
-    content:'<h1>New Westminster</h1>'
-  });
-
-  marker.addListener('click', function(){
-    infoWindow.open(map, marker);
-  });
-  */
 
   addMarker({
     coords:{lat:49.2819, lng:-123.1083},
