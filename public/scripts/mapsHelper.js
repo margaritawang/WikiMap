@@ -1,5 +1,5 @@
 var map;
-var markers = [];;
+var markers = [];
 
 function addMarker(props){
   var marker = new google.maps.Marker({
@@ -43,17 +43,6 @@ function initMap() {
   //New map
   map = new google.maps.Map(document.getElementById('map'), options);
 
-  //Listen for click on map
-  google.maps.event.addListener(map, 'click', function(event){
-      var myLatLng = event.latLng;
-      var lat = myLatLng.lat();
-      var lng = myLatLng.lng();
-      addMarker({coords:myLatLng});
-  });
-
-  google.maps.event.addListener(map, 'dblclick', function(event){
-
-  });
 
 
   addMarker({

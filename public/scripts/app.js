@@ -48,15 +48,19 @@ $(document).ready(function() {
       url: '/api/maps/' + mapid,
     }).done(function (data) {
       deleteMarkers();
+      if (data.error){
+        return;
+      }
       filterPoints(data);
       // console.log("data",data);
     })
   }
 
-
+  var currentMap;
   $('.maplist').on('click', 'li', function(event) {
     event.preventDefault();
-    checkMap($(this).data().mapid);
+    currentMap = $(this).data().mapid;
+    checkMap(currentMap);
   })
 
   function checkPoint(pointid) {
@@ -112,10 +116,39 @@ $(document).ready(function() {
 
     //Listen for click on map
     google.maps.event.addListener(map, 'click', function(event){
-      addMarker({coords:event.latLng});
-    });
-    /*
+      var myLatLng = event.latLng;
+      var lat = myLatLng.lat();
+      var lng = myLatLng.lng();
+      var title = prompt("Give a title for your marker:");
+      if(title != null){
+        var description = prompt('Now, give us a description:');
+        if(description != null){
+          addMarker({coords: myLatLng});
+        }
+      }
+      var point = {
+        title: title,
+        description: description,
+        maps_id: currentMap,
+        latitude: lat,
+        longitude: lng,
+        users_id: 1000001
+      }
+      var infoWindow = new google.maps.InfoWindow({
+        content:`<h3>${title}</h3><p>${description}</p>`
+      })
+      console.log(point);
+      //createPoint(point);
 
+      //console.log("title:", title);
+      //console.log("description:", description);
+
+  });
+
+  google.maps.event.addListener(map, 'dblclick', function(event){
+    
+  })
+    /*
     var infoWindow = new google.maps.InfoWindow({
       content:'<h1>New Westminster</h1>'
     });

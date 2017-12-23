@@ -37,7 +37,11 @@ module.exports = (knex) => {
       .from("points")
       .where('maps_id', req.params.id)
       .then((results) => {
-        res.json(results);
+        if(results.length){
+          return res.json(results);
+        } else {
+          return res.send({"error": "not found"})
+        }
     });
     console.log(req.params.id);
   })
@@ -72,6 +76,15 @@ module.exports = (knex) => {
   })
 
   router.post('/maps/:id/points', (req, res) => {
+    // knex('points')
+    // .insert({
+    //   users_id: 1000002,
+    //   title: '',
+    //   description: '',
+    //   longitude: ,
+    //   latitude: ,
+    //   maps_id: ''
+    // })
     res.send('created points');
   })
 
