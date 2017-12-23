@@ -56,6 +56,7 @@ $(document).ready(function() {
       method: 'GET',
       url: '/api/maps/' + mapid,
     }).done(function (data) {
+      deleteMarkers();
       filterPoints(data);
       console.log("data",data);
     })
@@ -139,23 +140,23 @@ $(document).ready(function() {
       content: '<h3>Lighthouse Labs</h3> <p>Coding bootcamp for dummies</p>'
       });
 
-    function addMarker(props){
-      var marker = new google.maps.Marker({
-      position:props.coords,
-      map:map
+    // function addMarker(props){
+    //   var marker = new google.maps.Marker({
+    //   position:props.coords,
+    //   map:map
 
-      });
+    //   });
 
-      if(props.content){
-        var infoWindow = new google.maps.InfoWindow({
-        content:props.content
-        });
+    //   if(props.content){
+    //     var infoWindow = new google.maps.InfoWindow({
+    //     content:props.content
+    //     });
 
-        marker.addListener('click', function(){
-        infoWindow.open(map, marker);
-        });
-      }
-    }
+    //     marker.addListener('click', function(){
+    //     infoWindow.open(map, marker);
+    //     });
+    //   }
+    // }
 
   $('li').on('click', function(event) {
     event.preventDefault();

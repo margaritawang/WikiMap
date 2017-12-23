@@ -1,4 +1,5 @@
 var map;
+var markers = [];;
 
 function addMarker(props){
   var marker = new google.maps.Marker({
@@ -15,6 +16,22 @@ function addMarker(props){
       infoWindow.open(map, marker);
     });
   }
+  markers.push(marker);
+}
+
+function setMapOnAll(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+
+function clearMarkers() {
+  setMapOnAll(null);
+}
+
+function deleteMarkers() {
+  clearMarkers();
+  markers = [];
 }
 
 function initMap() {
