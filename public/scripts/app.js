@@ -72,12 +72,11 @@ $(document).ready(function() {
       method: 'POST',
       url: '/api/maps',
       data: mapname
-
     }).done(function() {
       deleteMarkers();
       var $mapname = $('<li>').text(mapname.split('=').slice(1));
-      $('.maplist').append($mapname);
-      $('.newmap')[0].reset();
+        $('.maplist').append($mapname);
+        $('.newmap')[0].reset();
     });
   }
 
@@ -156,7 +155,7 @@ $(document).ready(function() {
 
   $('.newmap').on('submit', function(event) {
     event.preventDefault();
-    console.log($(this).serialize());
+    // console.log($(this).serialize());
     createMap($(this).serialize());
     // $.ajax({
     //   method: "POST",

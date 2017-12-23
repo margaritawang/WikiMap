@@ -55,10 +55,20 @@ module.exports = (knex) => {
   })
 
   router.post('/maps', (req, res) => {
-    knex
-      // .insert ({ name: req.body }).into(maps)
-
-    res.send('created');
+    knex('maps')
+      .insert({
+        users_id: 1000002,
+        title: req.body.mapname,
+        longitude: -123.116226,
+        latitude: 49.246292
+      }).
+      // catch((err) => console.log(err)).
+      then(() => {
+        res.send('created');
+      })
+      // .into('maps')
+    // console.log('mapname='+req.body.mapname);
+    // res.send('created');
   })
 
   router.post('/maps/:id/points', (req, res) => {
