@@ -10,8 +10,13 @@ function addMarker(props){
   if(props.content){
     var infoWindow = new google.maps.InfoWindow({
       content:props.content
-    });  
+    });
+
+    marker.addListener('click', function(){
+      infoWindow.open(map, marker);
+    });
   }
+
   markers.push(marker);
 }
 
@@ -31,10 +36,6 @@ function deleteMarkers() {
 }
 
 function addMarkerOnMap(mapid) {
-<<<<<<< HEAD
-=======
-
->>>>>>> f6cbbd219486ec0529baad7a8ec472809e80c95d
     google.maps.event.addListener(map, 'click', function(event){
       var myLatLng = event.latLng;
       var lat = myLatLng.lat();
@@ -72,14 +73,6 @@ function initMap() {
   //New map
   map = new google.maps.Map(document.getElementById('map'), options);
 
-<<<<<<< HEAD
-  //Listen for click on map
-  // google.maps.event.addListener(map, 'click', function(event){
-  //     var myLatLng = event.latLng;
-  //     var lat = myLatLng.lat();
-  //     var lng = myLatLng.lng();
-  //     addMarker({coords:myLatLng});
-  // });
 
   google.maps.event.addListener(map, 'dblclick', function(event){
 
@@ -91,6 +84,4 @@ function initMap() {
     content: '<h4>Lighthouse Labs</h4> <p>Coding bootcamp for dummies</p>'
   });
 
-=======
->>>>>>> f6cbbd219486ec0529baad7a8ec472809e80c95d
 }

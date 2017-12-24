@@ -172,7 +172,6 @@ $(document).ready(function() {
   google.maps.event.addListener(map, 'dblclick', function(event){
 
   })
-    /*
 
 
 
