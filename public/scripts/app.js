@@ -62,6 +62,7 @@ $(document).ready(function() {
   $('.maplist').on('click', 'li', function(event) {
     event.preventDefault();
     currentMap = $(this).data().mapid;
+    console.log(currentMap);
     checkMap(currentMap);
   })
     
