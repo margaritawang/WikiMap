@@ -39,7 +39,7 @@ module.exports = (knex) => {
       .then((results) => {
         res.json(results);
     });
-    console.log(req.params.id);
+    // console.log(req.params.id);
   })
 
   router.get('/points/:id', (req, res) => {
@@ -70,7 +70,7 @@ module.exports = (knex) => {
         // .where('title', req.body.mapname)
         // .then((results) => {
         //   console.log(results);
-          res.send('good');
+          res.status(200);
         // })
       })
       // .into('maps')
@@ -79,7 +79,14 @@ module.exports = (knex) => {
   })
 
   router.post('/maps/:id/points', (req, res) => {
-    console.log('created points');
+    console.log(req.body);
+    console.log(req.params.id);
+    knex('points')
+      .insert(req.body)
+      .then(() => {
+        res.status(200);
+      })
+    // console.log('created pointts');
   })
 
   router.post('/like', (req, res) => {
