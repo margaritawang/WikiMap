@@ -141,33 +141,42 @@ $(document).ready(function() {
 
     //Listen for click on map to create points
     google.maps.event.addListener(map, 'click', function(event){
-      var myLatLng = event.latLng;
-      var lat = myLatLng.lat();
-      var lng = myLatLng.lng();
-      var title = prompt("Give a title for your marker:");
-      if(title != null){
-        var description = prompt('Now, give us a description:');
-        if(description != null){
-          addMarker({coords: myLatLng});
+      if (!$('.login').data().user) {
+        alert('please log in!');
+      }
+      else {
+        var myLatLng = event.latLng;
+        var lat = myLatLng.lat();
+        var lng = myLatLng.lng();
+        var title = prompt("Give a title for your marker:");
+        if(!title){
+          alert('please insert a title!')
+        } else {
+          var description = prompt('Now, give us a description:');
+
+          if(!description){
+            alert('Please insert a description!')
+          } else {
+            addMarker({coords: myLatLng});
+            var point = {
+              title: title,
+              description: description,
+              longitude: lng,
+              latitude: lat,
+              users_id: 1000001,
+              maps_id: currentMap
+            }
+
+            var infoWindow = new google.maps.InfoWindow({
+              content:`<h3>${title}</h3><p>${description}</p>`
+            })
+            console.log(point);
+            createPoint(currentMap,point);
+            checkMap(currentMap);
+          }
         }
+        // console.log('currentMap click event=', currentMap);
       }
-      // console.log('currentMap click event=', currentMap);
-
-      var point = {
-        title: title,
-        description: description,
-        longitude: lng,
-        latitude: lat,
-        users_id: 1000001,
-        maps_id: currentMap
-      }
-
-      var infoWindow = new google.maps.InfoWindow({
-        content:`<h3>${title}</h3><p>${description}</p>`
-      })
-      console.log(point);
-      createPoint(currentMap,point);
-      checkMap(currentMap);
 
       // console.log("title:", title);
       // console.log("description:", description);

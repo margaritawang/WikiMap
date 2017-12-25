@@ -71,13 +71,16 @@ module.exports = knex => {
   })
 
   router.post('/maps/:id/points', (req, res) => {
-    console.log(req.body);
-    console.log(req.params.id);
-    knex('points')
-      .insert(req.body)
-      .then(() => {
-        res.status(200);
-      })
+    if (!req.session.user_id) {
+      return res.status(200);
+    } else {
+      knex('points')
+        .insert(req.body)
+        .then(() => {
+          return res.status(200);
+        })
+
+    }
     // console.log('created pointts');
   })
 

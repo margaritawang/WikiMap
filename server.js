@@ -14,6 +14,7 @@ const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 const cookieSession = require('cookie-session');
+const cookieParser = require('cookie-parser')
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -22,9 +23,17 @@ const usersRoutes = require("./routes/users");
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan('dev'));
+app.use(cookieParser());
 
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
+//
+// app.use((req, res, next) => {
+//   const session = req.session;
+//   console.log("session",session);
+//   res.locals.user = session;
+//   next();
+// })
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -46,7 +55,9 @@ app.use("/api/", usersRoutes(knex));
 
 // Home page
 app.get("/", (req, res) => {
-  res.render("index");
+  res.render("index", {
+    user: req.session
+  });
 });
 
 app.get('/login/:id', (req, res) => {
