@@ -123,7 +123,7 @@ $(document).ready(function() {
 
   function editPoint() {
     $.ajax({
-      method: "PUT",
+      method: "POST",
       url: "/api/points/:id"
     });
   }
@@ -147,7 +147,7 @@ $(document).ready(function() {
   $('.maplist').on('click', 'i', function(event) {
     event.preventDefault();
     if (!$('.login').data().user) {
-      alert('Please log in!');
+      alert('Please log in First!');
     } else {
 
       var userId = $('.login').data().user;
@@ -161,49 +161,48 @@ $(document).ready(function() {
       console.log(mapDetail);
     }
   })
-    //Listen for click on map to create points
 
-    google.maps.event.addListener(map, 'click', function(event){
-      if (!$('.login').data().user) {
-        alert('please log in!');
-      }
-      else {
-        var myLatLng = event.latLng;
-        var lat = myLatLng.lat();
-        var lng = myLatLng.lng();
-        var title = prompt("Give a title for your marker:");
-        if(!title){
-          alert('please insert a title!')
+
+  //Listen for click on map to create points
+  google.maps.event.addListener(map, 'click', function(event){
+    if (!$('.login').data().user) {
+      alert('Please Log in First!');
+    } else if (!currentMap){
+      alert('Please Select a Map to Add Your Points!');
+    } else {
+      var myLatLng = event.latLng;
+      var lat = myLatLng.lat();
+      var lng = myLatLng.lng();
+      var title = prompt("Give a title for your marker:");
+      if(!title){
+        alert('Please Insert a Title!')
+      } else {
+        var description = prompt('Now, give us a description:');
+
+        if(!description){
+          alert('Please Insert a Description!')
         } else {
-          var description = prompt('Now, give us a description:');
-
-          if(!description){
-            alert('Please insert a description!')
-          } else {
-            addMarker({coords: myLatLng});
-            var point = {
-              title: title,
-              description: description,
-              longitude: lng,
-              latitude: lat,
-              users_id: 1000001,
-              maps_id: currentMap
-            }
-
-            var infoWindow = new google.maps.InfoWindow({
-              content:`<h3>${title}</h3><p>${description}</p>`
-            })
-            console.log(point);
-            createPoint(currentMap,point);
-            checkMap(currentMap);
+          addMarker({coords: myLatLng});
+          var point = {
+            title: title,
+            description: description,
+            longitude: lng,
+            latitude: lat,
+            users_id: 1000001,
+            maps_id: currentMap
           }
-        }
-        // console.log('currentMap click event=', currentMap);
-      }
 
+          var infoWindow = new google.maps.InfoWindow({
+            content:`<h3>${title}</h3><p>${description}</p>`
+          })
+          console.log(point);
+          createPoint(currentMap,point);
+          checkMap(currentMap);
+        }
+      }
+    }
       // console.log("title:", title);
       // console.log("description:", description);
-
   });
 
   google.maps.event.addListener(map, 'dblclick', function(event){
@@ -221,7 +220,7 @@ $(document).ready(function() {
   $(".newmap").on("submit", function(event) {
     event.preventDefault();
     if (!$('.login').data().user) {
-      alert('please log in!');
+      alert('Please log in!');
       $(".newmap")[0].reset();
     } else {
       createMap($(this).serialize());

@@ -15,18 +15,23 @@
 
   <body>
     <header>
-      <p class="login" data-user="<%= user.user_id %>"> userid </p>
+      <p class="login" data-user="<%= user.user_id %>"></p>
       <h1>WikiMap</h1>
-      <form class="login">
-        username: <input id="username" placeholder="username">
-        password: <input id="password" placeholder="password">
-        <input type="submit" value="Log In">
-        or <a href="/">register here!</a>
+      <% if (!user.user_id) { %>
+        <form class="login">
+          username: <input id="username" placeholder="username">
+          password: <input id="password" placeholder="password">
+          <input type="submit" value="Log In">
+          or <a href="/">register here</a>!
+        </form>
 
+      <% } else { %>
         <p>
         <a href="/api/profile">Profile</a>
+        <form method="post" action="/logout">
+          <button type="submit">Log Out</button>
         </p>
-      </form>
+      <% } %>
     </header>
     <div id="map"></div>
     <section class="maps">
