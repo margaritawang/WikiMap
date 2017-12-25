@@ -85,10 +85,10 @@ module.exports = knex => {
     res.send('liked');
   })
 
-  router.get('/users/:id', (req, res) => {
-    console.log('userid: ' + req.params.id);
-    res.render('profilev2');
-  })
+  // router.get('/users/:id', (req, res) => {
+  //   console.log('userid: ' + req.params.id);
+  //   res.render('profile');
+  // })
 
 
   router.post("/like", (req, res) => {

@@ -15,11 +15,31 @@
     <header>
       <h1>WikiMap</h1>
       <form class="login">
+        <a href="/">Home</a>
           <h3>Hello, user!</h3>
         <button>Sign out!</button>
       </form>
     </header>
     <div id="map"></div>
+
+    <section class="fav maps">
+      <h2>My favorite Maps</h2>
+      <ul class='favlist'>
+        <li data-mapid='2000001'>Burgers</li>
+        <li data-mapid='2000002'>Mexican</li>
+        <li data-mapid='2000003'>Bars</li>
+        <li data-mapid='2000004'>Spas</li>
+      </ul>
+    </section>
+
+    <section class='my maps'>
+      <h2>Maps I've contributed to</h2>
+      <ul class='newmap'>
+        <li data-mapid='2000002'>Mexican</li>
+        <li data-mapid='2000003'>Bars</li>
+        <li data-mapid='2000004'>Spas</li>
+      </ul>
+    </section>
     <script type="text/javascript" src="/scripts/mapsHelper.js"></script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBJoDCLk9kLZT_vngLcbg6B_HI9tKdGdM&callback=initMap">

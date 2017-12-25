@@ -10,7 +10,10 @@ $(document).ready(function() {
       for (var i in templateVar[0]) {
         var mapTitle = templateVar[0][i].title;
         var mapID = templateVar[0][i].id;
-        ($mapItem = $("<li>").text(mapTitle)), $mapItem.data("mapid", mapID);
+        var $mapItem = $("<li>").text(mapTitle);
+        var $icon = $('<i>').addClass('icon fa fa-heart fa-1x');
+        $mapItem.append($icon);
+        $mapItem.data("mapid", mapID);
         $(".maplist").append($mapItem);
       }
 
@@ -67,6 +70,7 @@ $(document).ready(function() {
   }
 
   $('.maplist').on('click', 'li', function(event) {
+    // console.log($(this).text())
     event.preventDefault();
     currentMap = $(this).data().mapid;
     $('#map').data('mapid', currentMap)
