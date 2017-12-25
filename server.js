@@ -61,6 +61,6 @@ app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
 
-app.get("/profile", (req, res) => {
-    res.render("profile");
-})
+// app.get("/profile", (req, res) => {
+//     res.render("profile", templateVars);
+// })

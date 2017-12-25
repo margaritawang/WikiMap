@@ -90,6 +90,10 @@ module.exports = knex => {
   //   res.render('profile');
   // })
 
+  router.get("/profile", (req, res) => {
+    res.render("profile");
+})
+
 
   router.post("/like", (req, res) => {
     res.send("liked");

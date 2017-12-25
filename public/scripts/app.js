@@ -167,6 +167,7 @@ $(document).ready(function() {
       })
       console.log(point);
       createPoint(currentMap,point);
+      checkMap(currentMap);
 
       // console.log("title:", title);
       // console.log("description:", description);
