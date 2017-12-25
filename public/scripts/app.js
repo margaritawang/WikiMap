@@ -74,7 +74,7 @@ $(document).ready(function() {
     event.preventDefault();
     currentMap = $(this).data().mapid;
     $('#map').data('mapid', currentMap)
-    console.log($('#map').data());
+    // console.log($('#map').data());
     checkMap(currentMap);
   })
 
@@ -196,7 +196,11 @@ $(document).ready(function() {
 
   $(".newmap").on("submit", function(event) {
     event.preventDefault();
-    // console.log($(this).serialize());
-    createMap($(this).serialize());
+    if (!$('.login').data().user) {
+      alert('please log in!');
+      $(".newmap")[0].reset();
+    } else {
+      createMap($(this).serialize());
+    }
   });
 });
