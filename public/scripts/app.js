@@ -12,6 +12,10 @@ $(document).ready(function() {
         var mapID = templateVar[0][i].id;
         var $mapItem = $("<li>").text(mapTitle);
         var $icon = $('<i>').addClass('icon fa fa-heart fa-1x');
+
+        $icon.data("id",mapID);
+        $icon.data("state", false);
+
         $mapItem.append($icon);
         $mapItem.data("mapid", mapID);
         $(".maplist").append($mapItem);
@@ -69,14 +73,14 @@ $(document).ready(function() {
     });
   }
 
+  // users can check points on a map when clicking mapname
   $('.maplist').on('click', 'li', function(event) {
-    // console.log($(this).text())
     event.preventDefault();
     currentMap = $(this).data().mapid;
     $('#map').data('mapid', currentMap)
-    // console.log($('#map').data());
     checkMap(currentMap);
   })
+
 
 
   function checkPoint(pointid) {
@@ -131,15 +135,34 @@ $(document).ready(function() {
     });
   }
 
-  function likePoint() {
+  function likeMap(mapInfo) {
     $.ajax({
       method: "POST",
-      url: "/like",
-      data: pointInfo
+      url: "/api/like",
+      data: mapInfo
     });
   }
 
+  // users can favorite a map when clicking the heart icon
+  $('.maplist').on('click', 'i', function(event) {
+    event.preventDefault();
+    if (!$('.login').data().user) {
+      alert('Please log in!');
+    } else {
+
+      var userId = $('.login').data().user;
+      var mapId = $(this).data().id;
+      var mapDetail = {
+        users_id:  userId,
+        maps_id: mapId
+      }
+
+      likeMap(mapDetail);
+      console.log(mapDetail);
+    }
+  })
     //Listen for click on map to create points
+
     google.maps.event.addListener(map, 'click', function(event){
       if (!$('.login').data().user) {
         alert('please log in!');
@@ -194,6 +217,7 @@ $(document).ready(function() {
     content: "<h3>Lighthouse Labs</h3> <p>Coding bootcamp for dummies</p>"
   });
 
+  // Logged in users can create maps
   $(".newmap").on("submit", function(event) {
     event.preventDefault();
     if (!$('.login').data().user) {

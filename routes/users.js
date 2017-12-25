@@ -85,7 +85,12 @@ module.exports = knex => {
   })
 
   router.post('/like', (req, res) => {
-    res.send('liked');
+    knex('fav_maps')
+      .insert(req.body)
+      .then(() => {
+        return res.status(200);
+      })
+    console.log(req.body);
   })
 
   // router.get('/users/:id', (req, res) => {
@@ -95,14 +100,9 @@ module.exports = knex => {
 
   router.get("/profile", (req, res) => {
     res.render("profile");
-})
-
-
-  router.post("/like", (req, res) => {
-    res.send("liked");
   });
 
-  router.put("/points/:id", (req, res) => {
+  router.post("/points/:id", (req, res) => {
     knex("points")
       .where({ id: req.params.id })
       .update({ description: req.body });
