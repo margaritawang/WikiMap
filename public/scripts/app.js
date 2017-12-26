@@ -28,9 +28,9 @@ $(document).ready(function() {
             lat: templateVar[1][i].latitude,
             lng: templateVar[1][i].longitude
           },
-          content: `<h2>${templateVar[1][i].title}</h2><span>${
+          content: `<h2>${templateVar[1][i].title}</h2><p>${
             templateVar[1][i].description
-          }</span>`
+          }</p> <button>Edit</button> <button>Delete</button>`
         });
       }
     });
@@ -50,9 +50,9 @@ $(document).ready(function() {
           lat: points[i].latitude,
           lng: points[i].longitude
         },
-        content: `<h2>${points[i].title}</h2><span>${
+        content: `<h2>${points[i].title}</h2><p>${
           points[i].description
-        }</span>`
+        }</p><button>Edit</button> <button>Delete</button>`
       });
     }
   }
