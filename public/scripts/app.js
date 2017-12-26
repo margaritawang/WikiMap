@@ -1,7 +1,6 @@
 $(document).ready(function() {
   // load a list of available maps with all points on the home page
   function loadMap() {
-    console.log("load map");
     $.ajax({
       method: "GET",
       url: "/api/"
@@ -93,15 +92,21 @@ $(document).ready(function() {
   }
 
   function createMap(mapname) {
+    console.log('createmap');
     $.ajax({
       method: "POST",
       url: "/api/maps",
       data: mapname
     }).done(function(id) {
-      const newID = id[0];
-      currentMap = newID;
+
       deleteMarkers();
       var $mapname = $("<li>").text(mapname.split("=").slice(1));
+      var $icon = $('<i>').addClass('icon fa fa-heart fa-1x');
+
+        $icon.data("id",id[0]);
+        // $icon.data("state", false);
+
+        $mapname.append($icon);
       $(".maplist").append($mapname);
       $(".newmap")[0].reset();
     });
@@ -130,14 +135,13 @@ $(document).ready(function() {
   }
 
   function deletePoint(pointId) {
-    console.log("here delete")
     $.ajax({
       method: "POST",
       url: "api/points/" + pointId + "/delete"
     }).done((data) => {
       console.log("data ",data);
       deleteMarkers();
-      loadMap();
+      checkMap(data);
     })
   }
 
@@ -228,6 +232,10 @@ $(document).ready(function() {
     content: "<h3>Lighthouse Labs</h3> <p>Coding bootcamp for dummies</p>"
   });
 
+  $('.home').on('click', function() {
+    loadMap();
+  })
+
   // Logged in users can create maps
   $(".newmap").on("submit", function(event) {
     event.preventDefault();
@@ -235,6 +243,7 @@ $(document).ready(function() {
       alert('Please log in!');
       $(".newmap")[0].reset();
     } else {
+      console.log($(this).serialize());
       createMap($(this).serialize());
     }
   });

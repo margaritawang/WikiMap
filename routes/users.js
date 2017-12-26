@@ -51,10 +51,11 @@ module.exports = knex => {
   });
 
   router.post("/maps", (req, res) => {
+    console.log(req.session.user_id);
     knex("maps")
       .returning("id")
       .insert({
-        users_id: 1000002,
+        users_id: req.session.user_id,
         title: req.body.mapname,
         longitude: -123.116226,
         latitude: 49.246292
@@ -65,22 +66,16 @@ module.exports = knex => {
         console.log("typeof id=", typeof id);
         res.json(id);
       });
-    // .into('maps')
     // console.log('mapname='+req.body.mapname);
     // res.send('created');
   })
 
   router.post('/maps/:id/points', (req, res) => {
-    if (!req.session.user_id) {
-      return res.status(200);
-    } else {
-      knex('points')
-        .insert(req.body)
-        .then(() => {
-          return res.status(200);
-        })
-
-    }
+    knex('points')
+      .insert(req.body)
+      .then(() => {
+        return res.sendStatus(200);
+      })
     // console.log('created pointts');
   })
 
@@ -88,7 +83,7 @@ module.exports = knex => {
     knex('fav_maps')
       .insert(req.body)
       .then(() => {
-        return res.status(200);
+        return res.sendStatus(200);
       })
   })
 
@@ -98,6 +93,9 @@ module.exports = knex => {
   // })
 
   router.get("/profile", (req, res) => {
+    knex.select("*")
+    .from("maps")
+    .where("")
     res.render("profile");
   });
 
@@ -112,10 +110,11 @@ module.exports = knex => {
   // Delete points
   router.post("/points/:id/delete", (req, res) => {
     knex("points")
+      .returning('maps_id')
       .where({ id: req.params.id })
       .del()
-      .then(() => {
-        return res.send(200);
+      .then((maps_id) => {
+        return res.send(maps_id);
       })
   });
   return router;
