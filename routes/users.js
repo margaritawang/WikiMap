@@ -115,9 +115,8 @@ module.exports = knex => {
       .where({ id: req.params.id })
       .del()
       .then(() => {
-        res.status(200);
+        return res.send(200);
       })
-    console.log('delete');
   });
   return router;
 };

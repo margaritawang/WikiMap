@@ -1,6 +1,7 @@
 $(document).ready(function() {
   // load a list of available maps with all points on the home page
   function loadMap() {
+    console.log("load map");
     $.ajax({
       method: "GET",
       url: "/api/"
@@ -129,10 +130,15 @@ $(document).ready(function() {
   }
 
   function deletePoint(pointId) {
+    console.log("here delete")
     $.ajax({
       method: "POST",
       url: "api/points/" + pointId + "/delete"
-    });
+    }).done((data) => {
+      console.log("data ",data);
+      deleteMarkers();
+      loadMap();
+    })
   }
 
   $('#map').on('click', '.delete', function(event) {
