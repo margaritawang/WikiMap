@@ -95,8 +95,20 @@ module.exports = knex => {
   router.get("/profile", (req, res) => {
     knex.select("*")
     .from("maps")
-    .where("")
-    res.render("profile");
+    .where("users_id", req.session.user_id)
+    const userMaps = knex.select("*").from("maps").where("users_id", req.session.user_id);
+    const userPoints = knex.select("*").from("points");
+
+    Promise.all([userMaps, userPoints]).then(results => {
+      const maps = results[0];
+      const points = results[1];
+      res.send(results);
+    });
+    // .then((results) => {
+    //   res.render("profile", results);
+    //   res.json(results);
+    //   console.log(results);
+    // })
   });
 
   // Edit points

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/styles/profile.css" type="text/css" />
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
+    <script type="text/javascript" src="/scripts/profile.js"></script>
 
   </head>
 
@@ -17,12 +17,14 @@
       <form class="login">
         <a href="/">Home</a>
           <h3>Hello, user!</h3>
-        <button>Sign out!</button>
+        <form method="post" action="/logout">
+          <button type="submit">Log Out</button>
+        </form>
       </form>
     </header>
     <div id="map"></div>
 
-    <section class="fav maps">
+    <section class="favmaps">
       <h2>My favorite Maps</h2>
       <ul class='favlist'>
         <li data-mapid='2000001'>Burgers</li>
@@ -32,9 +34,9 @@
       </ul>
     </section>
 
-    <section class='my maps'>
+    <section class='maps'>
       <h2>Maps I've contributed to</h2>
-      <ul class='newmap'>
+      <ul class='mymaps'>
         <li data-mapid='2000002'>Mexican</li>
         <li data-mapid='2000003'>Bars</li>
         <li data-mapid='2000004'>Spas</li>

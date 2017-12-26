@@ -232,6 +232,7 @@ $(document).ready(function() {
     content: "<h3>Lighthouse Labs</h3> <p>Coding bootcamp for dummies</p>"
   });
 
+  // returns to maps with all points
   $('.home').on('click', function() {
     loadMap();
   })
@@ -247,4 +248,5 @@ $(document).ready(function() {
       createMap($(this).serialize());
     }
   });
-});
+
+})

@@ -68,6 +68,10 @@ app.get('/login/:id', (req, res) => {
     res.redirect('/');
 });
 
+app.get('/profile', (req, res) => {
+  res.render('profile');
+})
+
 app.post('/logout', (req, res) => {
   // deletes cookie
   req.session = null;
