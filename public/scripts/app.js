@@ -164,17 +164,19 @@ $(document).ready(function() {
     event.preventDefault();
     if (!$('.login').data().user) {
       alert('Please log in First!');
+    } else if ($(this).data().state === true) {
+      alert('You have already liked this map!');
     } else {
-
       var userId = $('.login').data().user;
       var mapId = $(this).data().id;
       var mapDetail = {
         users_id:  userId,
         maps_id: mapId
-      }
-
+        }
       likeMap(mapDetail);
-      console.log(mapDetail);
+      $(this).data().state = true;
+      console.log($(this).data());
+      // console.log(mapDetail);
     }
   })
 
