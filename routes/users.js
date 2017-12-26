@@ -87,21 +87,16 @@ module.exports = knex => {
       })
   })
 
-  // router.get('/users/:id', (req, res) => {
-  //   console.log('userid: ' + req.params.id);
-  //   res.render('profile');
-  // })
-
   router.get("/profile", (req, res) => {
     knex.select("*")
     .from("maps")
     .where("users_id", req.session.user_id)
     const userMaps = knex.select("*").from("maps").where("users_id", req.session.user_id);
     const userPoints = knex.select("*").from("points");
-
-    Promise.all([userMaps, userPoints]).then(results => {
-      const maps = results[0];
-      const points = results[1];
+    const favMaps = knex('maps').distinct().innerJoin('fav_maps','maps.id', 'fav_maps.maps_id').where('fav_maps.users_id', req.session.user_id);
+    Promise.all([userMaps, userPoints, favMaps]).then(results => {
+      // const maps = results[0];
+      // const points = results[1];
       res.send(results);
     });
     // .then((results) => {
