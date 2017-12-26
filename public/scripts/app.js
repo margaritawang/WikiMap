@@ -30,7 +30,7 @@ $(document).ready(function() {
           },
           content: `<h2>${templateVar[1][i].title}</h2><p>${
             templateVar[1][i].description
-          }</p> <button>Edit</button> <button>Delete</button>`
+          }</p> <button class='edit' data-id=${templateVar[1][i].id}>Edit</button> <button class='delete' data-id=${templateVar[1][i].id}>Delete</button>`
         });
       }
     });
@@ -52,7 +52,7 @@ $(document).ready(function() {
         },
         content: `<h2>${points[i].title}</h2><p>${
           points[i].description
-        }</p><button>Edit</button> <button>Delete</button>`
+        }</p><button class='edit' data-id=${points[i].id}>Edit</button> <button class='delete' data-id=${points[i].id}>Delete</button>`
       });
     }
   }
@@ -128,12 +128,18 @@ $(document).ready(function() {
     });
   }
 
-  function deletePoint() {
+  function deletePoint(pointId) {
     $.ajax({
-      method: "DELETE",
-      url: "/points/:id"
+      method: "POST",
+      url: "api/points/" + pointId + "/delete"
     });
   }
+
+  $('#map').on('click', '.delete', function(event) {
+    event.preventDefault();
+    deletePoint($(this).data().id);
+    console.log($(this).data().id);
+  })
 
   function likeMap(mapInfo) {
     $.ajax({

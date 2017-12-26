@@ -90,7 +90,6 @@ module.exports = knex => {
       .then(() => {
         return res.status(200);
       })
-    console.log(req.body);
   })
 
   // router.get('/users/:id', (req, res) => {
@@ -102,6 +101,7 @@ module.exports = knex => {
     res.render("profile");
   });
 
+  // Edit points
   router.post("/points/:id", (req, res) => {
     knex("points")
       .where({ id: req.params.id })
@@ -109,5 +109,15 @@ module.exports = knex => {
     res.send("got point");
   });
 
+  // Delete points
+  router.post("/points/:id/delete", (req, res) => {
+    knex("points")
+      .where({ id: req.params.id })
+      .del()
+      .then(() => {
+        res.status(200);
+      })
+    console.log('delete');
+  });
   return router;
 };
