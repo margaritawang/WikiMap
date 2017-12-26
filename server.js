@@ -69,7 +69,11 @@ app.get('/login/:id', (req, res) => {
 });
 
 app.get('/profile', (req, res) => {
-  res.render('profile');
+  if (!req.session.user_id) {
+    res.redirect('/');
+  } else {
+    res.render('profile');
+  }
 })
 
 app.post('/logout', (req, res) => {
