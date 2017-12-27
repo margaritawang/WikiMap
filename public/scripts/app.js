@@ -109,6 +109,7 @@ $(document).ready(function() {
         $mapname.append($icon);
       $(".maplist").append($mapname);
       $(".newmap")[0].reset();
+      window.location.reload();
     });
   }
 
