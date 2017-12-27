@@ -1,17 +1,26 @@
 body {
-    background-color: #EEE;
-  
-    h1 {
-      color: #244751;
-    }
-  }
-  
-  #map {
-    height: 400px;
-    width: 800px;
-    float: right;
-  }
+  background-color: #EEE;
 
-  .login {
-      display: inline;
+  h1 {
+    color: #244751;
   }
+}
+
+#map {
+  height: 400px;
+  width: 70%;
+  margin-top: 20px;
+  float: right;
+}
+
+.login {
+    display: inline;
+}
+
+.maps h2 {
+  margin: 20px;
+}
+
+.favmaps h2 {
+  margin: 20px;
+}

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
 
@@ -15,17 +15,29 @@
 
   <body>
     <header>
+      <p class="login" data-user="<%= user.user_id %>"></p>
       <h1>WikiMap</h1>
-      <form class="login">
-        username: <input id="username" placeholder="username">
-        password: <input id="password" placeholder="password">
-        <input type="submit" value="Log In">
-        or <a href="/">register here!</a>
-      </form>
+      <% if (!user.user_id) { %>
+        <form class="login">
+          username: <input id="username" placeholder="username">
+          password: <input id="password" placeholder="password">
+          <input type="submit" value="Log In">
+          or <a href="/">register here</a>!
+        </form>
+
+      <% } else { %>
+        <p>
+        <a href="/profile">Profile</a>
+        <form method="post" action="/logout">
+          <button type="submit">Log Out</button>
+        </form>
+        </p>
+      <% } %>
     </header>
     <div id="map"></div>
     <section class="maps">
       <h2>Available Maps</h2>
+      <h3 class='home'>See All Maps</h3>
       <ul class='maplist'>
         <!-- <li data-mapid='2000001'>Burgers</li>
         <li data-mapid='2000002'>Mexican</li>
@@ -42,8 +54,6 @@
       </form>
     </section>
 
-    </header>
-    <div id="map"></div>
     <script type="text/javascript" src="/scripts/mapsHelper.js"></script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBJoDCLk9kLZT_vngLcbg6B_HI9tKdGdM&callback=initMap">

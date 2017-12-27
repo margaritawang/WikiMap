@@ -37,7 +37,7 @@ module.exports = knex => {
           return res.send({ error: "not found" });
         }
       });
-    console.log(req.params.id);
+    // console.log(req.params.id);
   });
 
   router.get("/points/:id", (req, res) => {
@@ -47,16 +47,15 @@ module.exports = knex => {
       .where("id", req.params.id)
       .then(results => {
         res.json(results);
-      });
-    // console.log(req.params.id)
-    // res.send('got point');
+    });
   });
 
   router.post("/maps", (req, res) => {
+    console.log(req.session.user_id);
     knex("maps")
       .returning("id")
       .insert({
-        users_id: 1000002,
+        users_id: req.session.user_id,
         title: req.body.mapname,
         longitude: -123.116226,
         latitude: 49.246292
@@ -67,45 +66,63 @@ module.exports = knex => {
         console.log("typeof id=", typeof id);
         res.json(id);
       });
-    // .into('maps')
     // console.log('mapname='+req.body.mapname);
     // res.send('created');
-  });
-  router.post("/maps:id/points", (req, res) => {
-    knex("points")
-      .insert({
-        users_id: req.body.users_id,
-        title: req.body.title,
-        description: req.body.description,
-        longitude: req.body.longitude,
-        latitude: req.body.latitude,
-        maps_id: req.body.maps_id
-      })
+  })
+
+  router.post('/maps/:id/points', (req, res) => {
+    knex('points')
+      .insert(req.body)
       .then(() => {
-        res.send(201);
-      });
+        return res.sendStatus(200);
+      })
+    // console.log('created pointts');
+  })
+
+  router.post('/like', (req, res) => {
+    knex('fav_maps')
+      .insert(req.body)
+      .then(() => {
+        return res.sendStatus(200);
+      })
+  })
+
+  router.get("/profile", (req, res) => {
+    knex.select("*")
+    .from("maps")
+    .where("users_id", req.session.user_id)
+    const userMaps = knex.select("*").from("maps").where("users_id", req.session.user_id);
+    const userPoints = knex.select("*").from("points");
+    const favMaps = knex('maps').distinct().innerJoin('fav_maps','maps.id', 'fav_maps.maps_id').where('fav_maps.users_id', req.session.user_id);
+    Promise.all([userMaps, userPoints, favMaps]).then(results => {
+      // const maps = results[0];
+      // const points = results[1];
+      res.send(results);
+    });
+    // .then((results) => {
+    //   res.render("profile", results);
+    //   res.json(results);
+    //   console.log(results);
+    // })
   });
 
-  router.post("/like", (req, res) => {
-    res.send("liked");
-  });
-
-  router.get("/users/:id", (req, res) => {
-    console.log("userid: " + req.params.id);
-    res.render("profilev2");
-  });
-
-  router.get("/maps/:id", (req, res) => {
-    res.send("ok");
-  });
-
-  router.put("/points/:id", (req, res) => {
+  // Edit points
+  router.post("/points/:id", (req, res) => {
     knex("points")
       .where({ id: req.params.id })
       .update({ description: req.body });
     res.send("got point");
   });
 
-  router.get;
+  // Delete points
+  router.post("/points/:id/delete", (req, res) => {
+    knex("points")
+      .returning('maps_id')
+      .where({ id: req.params.id })
+      .del()
+      .then((maps_id) => {
+        return res.send(maps_id);
+      })
+  });
   return router;
 };
