@@ -104,11 +104,12 @@ $(document).ready(function() {
       var $icon = $('<i>').addClass('icon fa fa-heart fa-1x');
 
         $icon.data("id",id[0]);
-        // $icon.data("state", false);
+        $icon.data("state", false);
 
         $mapname.append($icon);
       $(".maplist").append($mapname);
       $(".newmap")[0].reset();
+      window.location.reload();
     });
   }
 
@@ -156,6 +157,8 @@ $(document).ready(function() {
       method: "POST",
       url: "/api/like",
       data: mapInfo
+    }).done(function(data) {
+      // console.log($(this).data());
     });
   }
 
@@ -174,7 +177,7 @@ $(document).ready(function() {
         maps_id: mapId
         }
       likeMap(mapDetail);
-      $(this).data().state = true;
+      // $(this).data().state = true;
       console.log($(this).data());
       // console.log(mapDetail);
     }
