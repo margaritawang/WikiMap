@@ -57,7 +57,7 @@ $(document).ready(function() {
     }
   }
 
-  // check points in a map
+  // Check points in a map
   function checkMap(mapid) {
     $.ajax({
       method: "GET",
@@ -69,7 +69,6 @@ $(document).ready(function() {
         return;
       }
       filterPoints(data);
-      // console.log("data",data);
     });
   }
 
@@ -81,16 +80,7 @@ $(document).ready(function() {
     checkMap(currentMap);
   })
 
-
-
-  function checkPoint(pointid) {
-    $.ajax({
-      method: "GET",
-      url: "/points/" + pointid
-    });
-    //need a loadpoint function
-  }
-
+  // Authenticated uses can create a map
   function createMap(mapname) {
     console.log('createmap');
     $.ajax({
@@ -128,10 +118,14 @@ $(document).ready(function() {
   //   createPoint(currentMap, pointDetail);
   // })
 
-  function editPoint() {
+  function editPoint(pointId, pointInfo) {
     $.ajax({
       method: "POST",
-      url: "/api/points/:id"
+      url: "/api/points/" + pointId,
+      data: pointInfo
+    }).done(function(data) {
+      // console.log(data);
+      checkMap(data);
     });
   }
 
@@ -140,7 +134,7 @@ $(document).ready(function() {
       method: "POST",
       url: "api/points/" + pointId + "/delete"
     }).done((data) => {
-      console.log("data ",data);
+      // console.log("data ",data);
       deleteMarkers();
       checkMap(data);
     })
@@ -149,7 +143,19 @@ $(document).ready(function() {
   $('#map').on('click', '.delete', function(event) {
     event.preventDefault();
     deletePoint($(this).data().id);
-    console.log($(this).data().id);
+    // console.log($(this).data().id);
+  })
+
+  $('#map').on('click', '.edit', function(event) {
+    event.preventDefault();
+    var newTitle = prompt("Give a new title for this marker, click enter if no change");
+    var newDes = prompt("Give a new description for this marker:");
+    var newPoint = {
+      title: newTitle,
+      description: newDes
+    };
+    editPoint($(this).data().id, newPoint);
+    console.log(newPoint);
   })
 
   function likeMap(mapInfo) {
@@ -165,8 +171,8 @@ $(document).ready(function() {
     event.preventDefault();
     if (!$('.login').data().user) {
       alert('Please log in First!');
-    } else if ($(this).data().state === true) {
-      alert('You have already liked this map!');
+    // } else if ($(this).data().state === true) {
+      // alert('You have already liked this map!');
     } else {
       var userId = $('.login').data().user;
       var mapId = $(this).data().id;
