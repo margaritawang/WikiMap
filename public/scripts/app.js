@@ -132,6 +132,9 @@ $(document).ready(function() {
       method: "POST",
       url: "/api/points/" + pointId,
       data: pointInfo
+    }).done(function(data) {
+      // console.log(data);
+      checkMap(data);
     });
   }
 

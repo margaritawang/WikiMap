@@ -136,7 +136,6 @@ module.exports = knex => {
           return res.send(maps_id);
         });
     }
-    // res.send("got point");
   });
 
   // Delete points
