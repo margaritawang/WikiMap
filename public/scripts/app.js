@@ -57,7 +57,7 @@ $(document).ready(function() {
     }
   }
 
-  // check points in a map
+  // Check points in a map
   function checkMap(mapid) {
     $.ajax({
       method: "GET",
@@ -69,7 +69,6 @@ $(document).ready(function() {
         return;
       }
       filterPoints(data);
-      // console.log("data",data);
     });
   }
 
@@ -81,16 +80,7 @@ $(document).ready(function() {
     checkMap(currentMap);
   })
 
-
-
-  function checkPoint(pointid) {
-    $.ajax({
-      method: "GET",
-      url: "/points/" + pointid
-    });
-    //need a loadpoint function
-  }
-
+  // Authenticated uses can create a map
   function createMap(mapname) {
     console.log('createmap');
     $.ajax({
