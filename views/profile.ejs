@@ -16,33 +16,32 @@
 
   <body>
     <header>
-      <h1>WikiMap</h1>
-      <form class="login">
-        <a href="/">Home</a>
-          <h3>Hello, user!</h3>
-        <form method="post" action="/logout">
-          <button type="submit">Log Out</button>
-        </form>
-      </form>
+       <nav id="navBar" class="navbar navbar-expand-md bg-primary navbar-light">
+        <div class="container-fluid">
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#mainNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+              <div class="collapse navbar-collapse" id="mainNav">
+                <h1 class="display-4 text-white">WikiMap</h1>
+                <div class="navbar-nav">
+                  <a class="nav-item nav-link active" href="/profile">Profile</a>
+                  <a class="nav-item nav-link" href="/">Home</a>
+                </div>
+              </div>
+        </div>
+      </nav>
     </header>
     <div id="map"></div>
 
     <section class="favmaps">
       <h2>My favorite Maps</h2>
       <ul class='favlist'>
-        <li data-mapid='2000001'>Burgers</li>
-        <li data-mapid='2000002'>Mexican</li>
-        <li data-mapid='2000003'>Bars</li>
-        <li data-mapid='2000004'>Spas</li>
       </ul>
     </section>
 
     <section class='maps'>
       <h2>Maps I've contributed to</h2>
       <ul class='mymaps'>
-        <!-- <li data-mapid='2000002'>Mexican</li>
-        <li data-mapid='2000003'>Bars</li>
-        <li data-mapid='2000004'>Spas</li> -->
       </ul>
     </section>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
