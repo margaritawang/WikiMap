@@ -1,16 +1,14 @@
 body {
-  background-color: #EEE;
-
-  h1 {
-    color: #244751;
-  }
+  background-color: lightsteelblue;
 }
-
+h1 {
+  color:white;
+}
 #map {
-  height: 400px;
+  height:700px;
   width: 70%;
-  margin-top: 20px;
   float: right;
+  margin-top:40px;
 }
 
 .login {
