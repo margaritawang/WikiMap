@@ -68,23 +68,37 @@ module.exports = knex => {
     // res.send('created');
   })
 
+  // Insert a point into current map
   router.post('/maps/:id/points', (req, res) => {
     knex('points')
       .insert(req.body)
       .then(() => {
         return res.sendStatus(200);
       })
-    // console.log('created pointts');
   })
 
+  // Favorite a map
   router.post('/like', (req, res) => {
-    knex('fav_maps')
-      .insert(req.body)
-      .then(() => {
-        return res.sendStatus(200);
-      })
+    knex.select('*').from("fav_maps")
+      .where({
+        "maps_id": req.body.maps_id,
+        "users_id": req.body.users_id})
+      .then(results => {
+        if (results.length) {
+          let state = true;
+          res.send(state);
+        } else {
+          knex('fav_maps')
+            .insert(req.body)
+            .then(() => {
+              return res.sendStatus(200);
+          })
+        }
+      });
+    // console.log(req.body);
   })
 
+  // Load profile page
   router.get("/profile", (req, res) => {
     knex.select("*")
     .from("maps")
