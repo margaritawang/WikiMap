@@ -8,17 +8,14 @@ h1 {
   height:700px;
   width: 70%;
   float: right;
-  margin-top:40px;
+  margin-top:46px;
 }
-
-.login {
-    display: inline;
+h2 {
+  color:white;
 }
-
-.maps h2 {
-  margin: 20px;
+.mymaps li:hover {
+  background-color:aliceblue;
 }
-
-.favmaps h2 {
-  margin: 20px;
+.favlist li:hover {
+  background-color:aliceblue;
 }
