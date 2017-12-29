@@ -15,7 +15,7 @@
 
   <body>
     <header>
-      <nav class="navbar navbar-expand-md bg-primary navbar-light">
+      <nav id="navBar" class="navbar navbar-expand-md bg-primary navbar-light">
         <div class="container">
             <button class="navbar-toggler" data-toggle="collapse" data-target="#mainNav">
                 <span class="navbar-toggler-icon"></span>
@@ -27,8 +27,9 @@
                     <a class="nav-item nav-link" href="/profile">Profile</a>
                     <%} else { %>
                     <a class="nav-item nav-link" href="/login/1000001">Login</a>
-                    <%}%>
                     <a class="nav-item nav-link" href="/">Register</a>
+                    <%}%>
+
                 </div>
             </div>
         </div>
@@ -42,34 +43,34 @@
               <form class="login">
                 username: <input type="text" id="username" placeholder="username">
                 password: <input type="password" id="password" placeholder="password">
-                <input type="submit" value="Log In">
+                <input class="login-button" type="submit" value="Log In">
               </form>
             <% } else { %>
               <p>
                 <form method="post" action="/logout">
-                  <button type="submit">Log Out</button>
+                  <button class="logout" type="submit">Log Out</button>
                 </form>
               </p>
              <% } %>
         </div>
       </div>
     </header>
-      <div id="map"></div>
-      <section class="maps">
-        <h3 class="home">Maps</h3>
-        <ul class="maplist" class="list-group">
-          <li>hello</li>
-
-        </ul>
-      </section>
-
-      <section class="createmap">
-        <h3>Create a new map</h3>
-        <form class="newmap">
-          <textarea name="mapname"></textarea>
-          <input type="submit" value="Create Map!">
-        </form>
-      </section>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3">
+          <h3>Maps</h3>
+          <div class="maps">
+            <ul class="maplist list-group">
+            </ul>
+          </div>
+          <h3>Create a new map:</h3>
+          <form class="newmap">
+            <textarea class="create-map-textarea" name="mapname"></textarea>
+            <input class="create-map-button" type="submit" value="Create Map!">
+          </form>
+        </div>
+        <div  class="col-sm-9" id="map"></div>
+      </div>
     <script type="text/javascript" src="/scripts/mapsHelper.js"></script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBJoDCLk9kLZT_vngLcbg6B_HI9tKdGdM&callback=initMap">
