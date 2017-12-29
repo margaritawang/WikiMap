@@ -10,7 +10,7 @@ $(document).ready(function() {
       for (var i in templateVar[0]) {
         var mapTitle = templateVar[0][i].title;
         var mapID = templateVar[0][i].id;
-        var $mapItem = $("<li>").text(mapTitle);
+        var $mapItem = $("<li class='list-group-item'>").text(mapTitle);
         var $icon = $('<i>').addClass('icon fa fa-heart fa-1x');
 
         $icon.data("id",mapID);
