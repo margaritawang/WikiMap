@@ -46,4 +46,49 @@ $(document).ready(function() {
   }
   loadProfile();
 
+  // filter points within a specific map
+  function filterPoints(points) {
+    // console.log(mapid);
+    for (var i in points) {
+      addMarker({
+        coords: {
+          lat: points[i].latitude,
+          lng: points[i].longitude
+        },
+        content: `<h2>${points[i].title}</h2><p>${
+          points[i].description
+        }</p><button class='edit' data-id=${points[i].id}>Edit</button> <button class='delete' data-id=${points[i].id}>Delete</button>`
+      });
+    }
+  }
+
+  // Check points in a map
+  function checkMap(mapid) {
+    $.ajax({
+      method: "GET",
+      url: "/api/maps/" + mapid
+    }).done(function(data) {
+      deleteMarkers();
+      if (data.error) {
+        return;
+      }
+      filterPoints(data);
+    });
+  }
+
+
+  $('.favlist').on('click', 'li', function(event) {
+    event.preventDefault();
+    var currentMap = $(this).data().mapid;
+    $('#map').data('mapid', currentMap)
+    checkMap(currentMap);
+  })
+
+  $('.mymaps').on('click', 'li', function(event) {
+    event.preventDefault();
+    var currentMap = $(this).data().mapid;
+    $('#map').data('mapid', currentMap)
+    checkMap(currentMap);
+  })
+
 })

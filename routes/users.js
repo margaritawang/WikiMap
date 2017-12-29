@@ -108,10 +108,34 @@ module.exports = knex => {
 
   // Edit points
   router.post("/points/:id", (req, res) => {
-    knex("points")
-      .where({ id: req.params.id })
-      .update({ description: req.body });
-    res.send("got point");
+    console.log(req.body);
+    if (!req.body.title) {
+      knex("points")
+        .returning("maps_id")
+        .where({ id: req.params.id })
+        .update({ description: req.body.description })
+        .then((maps_id) => {
+          return res.send(maps_id);
+        });
+    } else if (!req.body.description) {
+      knex("points")
+        .returning("maps_id")
+        .where({ id: req.params.id })
+        .update({ title: req.body.title })
+        .then((maps_id) => {
+          return res.send(maps_id);
+        });
+    } else {
+      knex("points")
+        .returning("maps_id")
+        .where({ id: req.params.id })
+        .update({
+          title: req.body.title,
+          description: req.body.description })
+        .then((maps_id) => {
+          return res.send(maps_id);
+        });
+    }
   });
 
   // Delete points
