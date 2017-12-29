@@ -99,6 +99,8 @@ $(document).ready(function() {
         $mapname.append($icon);
       $(".maplist").append($mapname);
       $(".newmap")[0].reset();
+      // window.location.reload();
+      loadMap();
     });
   }
 
@@ -107,7 +109,7 @@ $(document).ready(function() {
       method: 'POST',
       url: '/api/maps/' + mapid +'/points',
       data: pointInfo
-    });
+    }).done(checkMap(mapid));
   }
 
   // $('#map').on('click', function(event) {
@@ -221,7 +223,6 @@ $(document).ready(function() {
           })
           console.log(point);
           createPoint(currentMap,point);
-          checkMap(currentMap);
         }
       }
     }
