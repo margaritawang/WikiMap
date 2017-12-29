@@ -25,6 +25,8 @@
                     <a class="nav-item nav-link active" href="/">Home</a>
                     <%if (user.user_id) { %>
                     <a class="nav-item nav-link" href="/profile">Profile</a>
+                    <%} else { %>
+                    <a class="nav-item nav-link" href="/login/1000001">Login</a>
                     <%}%>
                     <a class="nav-item nav-link" href="/">Register</a>
                 </div>
@@ -52,24 +54,24 @@
         </div>
       </div>
     </header>
-    <div class="container">
+    <div class="container-fluid">
       <div id="map"></div>
+      <section class="maps">
+        <h2>Available Maps</h2>
+        <h3 class='home'>See All Maps</h3>
+        <ul class='maplist'>
+
+        </ul>
+      </section>
+
+      <section class='createmap'>
+        <h3>Create a new map</h3>
+        <form class='newmap'>
+          <textarea name='mapname'></textarea>
+          <input type="submit" value="Create Map!">
+        </form>
+      </section>
     </div>
-    <section class="maps">
-      <h2>Available Maps</h2>
-      <h3 class='home'>See All Maps</h3>
-      <ul class='maplist'>
-
-      </ul>
-    </section>
-
-    <section class='createmap'>
-      <h3>Create a new map</h3>
-      <form class='newmap'>
-        <textarea name='mapname'></textarea>
-        <input type="submit" value="Create Map!">
-      </form>
-    </section>
     <script type="text/javascript" src="/scripts/mapsHelper.js"></script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBJoDCLk9kLZT_vngLcbg6B_HI9tKdGdM&callback=initMap">
