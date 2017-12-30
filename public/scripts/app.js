@@ -28,7 +28,7 @@ $(document).ready(function() {
             lat: templateVar[1][i].latitude,
             lng: templateVar[1][i].longitude
           },
-          content: `<h2>${templateVar[1][i].title}</h2><p>${
+          content: `<h2 class="title">${templateVar[1][i].title}</h2><p>${
             templateVar[1][i].description
           }</p> <button class='edit' data-id=${templateVar[1][i].id}>Edit</button> <button class='delete' data-id=${templateVar[1][i].id}>Delete</button>`
         });
@@ -50,7 +50,7 @@ $(document).ready(function() {
           lat: points[i].latitude,
           lng: points[i].longitude
         },
-        content: `<h2>${points[i].title}</h2><p>${
+        content: `<h2 class="title">${points[i].title}</h2><p>${
           points[i].description
         }</p><button class='edit' data-id=${points[i].id}>Edit</button> <button class='delete' data-id=${points[i].id}>Delete</button>`
       });
