@@ -68,23 +68,37 @@ module.exports = knex => {
     // res.send('created');
   })
 
+  // Insert a point into current map
   router.post('/maps/:id/points', (req, res) => {
     knex('points')
       .insert(req.body)
       .then(() => {
         return res.sendStatus(200);
       })
-    // console.log('created pointts');
   })
 
+  // Favorite a map
   router.post('/like', (req, res) => {
-    knex('fav_maps')
-      .insert(req.body)
-      .then(() => {
-        return res.sendStatus(200);
-      })
+    knex.select('*').from("fav_maps")
+      .where({
+        "maps_id": req.body.maps_id,
+        "users_id": req.body.users_id})
+      .then(results => {
+        if (results.length) {
+          let state = true;
+          res.send(state);
+        } else {
+          knex('fav_maps')
+            .insert(req.body)
+            .then(() => {
+              return res.sendStatus(200);
+          })
+        }
+      });
+    // console.log(req.body);
   })
 
+  // Load profile page
   router.get("/profile", (req, res) => {
     knex.select("*")
     .from("maps")
@@ -106,10 +120,34 @@ module.exports = knex => {
 
   // Edit points
   router.post("/points/:id", (req, res) => {
-    knex("points")
-      .where({ id: req.params.id })
-      .update({ description: req.body });
-    res.send("got point");
+    console.log(req.body);
+    if (!req.body.title) {
+      knex("points")
+        .returning("maps_id")
+        .where({ id: req.params.id })
+        .update({ description: req.body.description })
+        .then((maps_id) => {
+          return res.send(maps_id);
+        });
+    } else if (!req.body.description) {
+      knex("points")
+        .returning("maps_id")
+        .where({ id: req.params.id })
+        .update({ title: req.body.title })
+        .then((maps_id) => {
+          return res.send(maps_id);
+        });
+    } else {
+      knex("points")
+        .returning("maps_id")
+        .where({ id: req.params.id })
+        .update({
+          title: req.body.title,
+          description: req.body.description })
+        .then((maps_id) => {
+          return res.send(maps_id);
+        });
+    }
   });
 
   // Delete points

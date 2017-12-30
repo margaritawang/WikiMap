@@ -10,7 +10,7 @@ $(document).ready(function() {
       for (var i in templateVar[0]) {
         var mapTitle = templateVar[0][i].title;
         var mapID = templateVar[0][i].id;
-        var $mapItem = $("<li>").text(mapTitle);
+        var $mapItem = $("<li class='list-group-item'>").text(mapTitle);
         var $icon = $('<i>').addClass('icon fa fa-heart fa-1x');
 
         $icon.data("id",mapID);
@@ -57,7 +57,7 @@ $(document).ready(function() {
     }
   }
 
-  // check points in a map
+  // Check points in a map
   function checkMap(mapid) {
     $.ajax({
       method: "GET",
@@ -69,7 +69,6 @@ $(document).ready(function() {
         return;
       }
       filterPoints(data);
-      // console.log("data",data);
     });
   }
 
@@ -81,16 +80,7 @@ $(document).ready(function() {
     checkMap(currentMap);
   })
 
-
-
-  function checkPoint(pointid) {
-    $.ajax({
-      method: "GET",
-      url: "/points/" + pointid
-    });
-    //need a loadpoint function
-  }
-
+  // Authenticated uses can create a map
   function createMap(mapname) {
     console.log('createmap');
     $.ajax({
@@ -104,13 +94,14 @@ $(document).ready(function() {
       var $icon = $('<i>').addClass('icon fa fa-heart fa-1x');
 
         $icon.data("id",id[0]);
-        // $icon.data("state", false);
+        $icon.data("state", false);
 
         $mapname.append($icon);
       $(".maplist").append($mapname);
       $(".newmap")[0].reset();
-      window.location.reload();
-    });
+      // window.location.reload();
+      loadMap();
+  });
   }
 
   function createPoint(mapid, pointInfo) {
@@ -118,7 +109,7 @@ $(document).ready(function() {
       method: 'POST',
       url: '/api/maps/' + mapid +'/points',
       data: pointInfo
-    });
+    }).done(checkMap(mapid));
   }
 
   // $('#map').on('click', function(event) {
@@ -128,10 +119,14 @@ $(document).ready(function() {
   //   createPoint(currentMap, pointDetail);
   // })
 
-  function editPoint() {
+  function editPoint(pointId, pointInfo) {
     $.ajax({
       method: "POST",
-      url: "/api/points/:id"
+      url: "/api/points/" + pointId,
+      data: pointInfo
+    }).done(function(data) {
+      // console.log(data);
+      checkMap(data);
     });
   }
 
@@ -140,7 +135,7 @@ $(document).ready(function() {
       method: "POST",
       url: "api/points/" + pointId + "/delete"
     }).done((data) => {
-      console.log("data ",data);
+      // console.log("data ",data);
       deleteMarkers();
       checkMap(data);
     })
@@ -149,7 +144,19 @@ $(document).ready(function() {
   $('#map').on('click', '.delete', function(event) {
     event.preventDefault();
     deletePoint($(this).data().id);
-    console.log($(this).data().id);
+    // console.log($(this).data().id);
+  })
+
+  $('#map').on('click', '.edit', function(event) {
+    event.preventDefault();
+    var newTitle = prompt("Give a new title for this marker, click enter if no change");
+    var newDes = prompt("Give a new description for this marker:");
+    var newPoint = {
+      title: newTitle,
+      description: newDes
+    };
+    editPoint($(this).data().id, newPoint);
+    console.log(newPoint);
   })
 
   function likeMap(mapInfo) {
@@ -157,6 +164,8 @@ $(document).ready(function() {
       method: "POST",
       url: "/api/like",
       data: mapInfo
+    }).done(function(data) {
+      // console.log($(this).data());
     });
   }
 
@@ -165,8 +174,8 @@ $(document).ready(function() {
     event.preventDefault();
     if (!$('.login').data().user) {
       alert('Please log in First!');
-    } else if ($(this).data().state === true) {
-      alert('You have already liked this map!');
+    // } else if ($(this).data().state === true) {
+      // alert('You have already liked this map!');
     } else {
       var userId = $('.login').data().user;
       var mapId = $(this).data().id;
@@ -175,7 +184,7 @@ $(document).ready(function() {
         maps_id: mapId
         }
       likeMap(mapDetail);
-      $(this).data().state = true;
+      // $(this).data().state = true;
       console.log($(this).data());
       // console.log(mapDetail);
     }
@@ -216,7 +225,6 @@ $(document).ready(function() {
           })
           console.log(point);
           createPoint(currentMap,point);
-          checkMap(currentMap);
         }
       }
     }
