@@ -10,7 +10,7 @@ $(document).ready(function() {
       for (var i in templateVar[0]) {
         var mapTitle = templateVar[0][i].title;
         var mapID = templateVar[0][i].id;
-        var $mapItem = $("<li>").text(mapTitle);
+        var $mapItem = $("<li class='list-group-item'>").text(mapTitle);
         var $icon = $('<i>').addClass('icon fa fa-heart fa-1x');
 
         $icon.data("id",mapID);
@@ -94,7 +94,7 @@ $(document).ready(function() {
       var $icon = $('<i>').addClass('icon fa fa-heart fa-1x');
 
         $icon.data("id",id[0]);
-        // $icon.data("state", false);
+        $icon.data("state", false);
 
         $mapname.append($icon);
       $(".maplist").append($mapname);
@@ -164,6 +164,8 @@ $(document).ready(function() {
       method: "POST",
       url: "/api/like",
       data: mapInfo
+    }).done(function(data) {
+      // console.log($(this).data());
     });
   }
 
@@ -182,7 +184,7 @@ $(document).ready(function() {
         maps_id: mapId
         }
       likeMap(mapDetail);
-      $(this).data().state = true;
+      // $(this).data().state = true;
       console.log($(this).data());
       // console.log(mapDetail);
     }
@@ -226,8 +228,6 @@ $(document).ready(function() {
         }
       }
     }
-      // console.log("title:", title);
-      // console.log("description:", description);
   });
 
   google.maps.event.addListener(map, 'dblclick', function(event){

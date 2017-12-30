@@ -15,7 +15,7 @@ $(document).ready(function() {
       for (var i in templateVar[0]) {
         var mapTitle = templateVar[0][i].title;
         var mapID = templateVar[0][i].id;
-        var $mapItem = $("<li>").text(mapTitle);
+        var $mapItem = $("<li class='list-group-item'>").text(mapTitle);
 
         $mapItem.data("mapid", mapID);
         $(".mymaps").append($mapItem);
@@ -37,7 +37,7 @@ $(document).ready(function() {
       for (var i in templateVar[2]) {
         var mapTitle = templateVar[2][i].title;
         var mapID = templateVar[2][i].id;
-        var $mapItem = $("<li>").text(mapTitle);
+        var $mapItem = $("<li class='list-group-item'>").text(mapTitle);
 
         $mapItem.data("mapid", mapID);
         $(".favlist").append($mapItem);
