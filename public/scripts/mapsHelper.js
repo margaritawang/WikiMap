@@ -1,5 +1,6 @@
 var map;
 var markers = [];
+var infoWindow;
 
 // load a list of available maps with all points on the home page
 function loadMap() {
@@ -136,21 +137,18 @@ function likeMap(mapInfo) {
 
 //add a marker on the map
 function addMarker(props){
+  infoWindow = new google.maps.InfoWindow();
+  
   var marker = new google.maps.Marker({
     position: props.coords,
     map: map
   });
 
-  if(props.content){
-    var infoWindow = new google.maps.InfoWindow({
-      content:props.content
-    });
-
-    marker.addListener('click', function(){
-      infoWindow.open(map, marker);
-    });
-  }
-
+  google.maps.event.addListener(marker, 'click', function(){
+    infoWindow.setContent(props.content); 
+    infoWindow.open(map,this); 
+  });
+  
   markers.push(marker);
 }
 

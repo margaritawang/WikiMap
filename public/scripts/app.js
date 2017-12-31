@@ -88,10 +88,6 @@ $(document).ready(function() {
             users_id: userId,
             maps_id: currentMap
           }
-
-          var infoWindow = new google.maps.InfoWindow({
-            content:`<h3>${title}</h3><p>${description}</p>`
-          })
           console.log(point);
           createPoint(currentMap,point);
         }
