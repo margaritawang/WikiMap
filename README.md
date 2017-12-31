@@ -3,6 +3,10 @@
 Wikimap is a web app that allows users to collaboratively create maps which list multiple "points", such as "Best Places to Eat Around Town" or "Locations of Movie Scenes".
 
 ## Final Product
+!['Screenshot of Navbar'](https://github.com/margaritawang/mt-project/blob/css/docs/Screenshot%20from%202017-12-31%2012-45-41.png)
+!['Screenshot of homepage'](https://github.com/margaritawang/mt-project/blob/css/docs/Screenshot%20from%202017-12-31%2012-46-20.png)
+!['Screenshot of homepage with point details'](https://github.com/margaritawang/mt-project/blob/css/docs/Screenshot%20from%202017-12-31%2012-46-50.png)
+!['Screenshot of profile page'](https://github.com/margaritawang/mt-project/blob/css/docs/Screenshot%20from%202017-12-31%2012-47-50.png)
 
 ## Dependencies
 - Body Parser
