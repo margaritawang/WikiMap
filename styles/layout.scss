@@ -2,6 +2,11 @@
 body {
   background-color:lightsteelblue;
 }
+#navBar {
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+}
 .row h3 {
 color:white;
 }
@@ -46,5 +51,5 @@ color:white;
 }
 .maplist li:hover {
   background-color:aliceblue;
-
 }
+

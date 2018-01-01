@@ -25,5 +25,7 @@ Wikimap is a web app that allows users to collaboratively create maps which list
 ## Getting Started
 
 1. Install all dependencies using the `npm install` command.
-2. Start the web server using the `npm run local` command. The app will be served at <http://localhost:8080/>.
-3. Go to <http://localhost:8080> in your browser.
+2. Within the project directory, run `knex migrate:latest`
+3. Run knex `seed:run`
+4. Start the web server using the `npm run local` command. The app will be served at <http://localhost:8080/>.
+5. Go to <http://localhost:8080> in your browser.
