@@ -10,8 +10,6 @@ module.exports = knex => {
       const maps = results[0];
       const points = results[1];
       res.send(results);
-      // console.log(maps);
-      // console.log(points);
     });
     // const mapsWithPoints = maps.map(map => {
     //   map.points = points.filter(point => point.maps_id === map.id);
@@ -19,8 +17,6 @@ module.exports = knex => {
     // res.json(results);
     // });
     // res.json({maps: mapsWithPoints, points});
-    // console.log(maps);
-    // console.log(points);
   });
 
   router.get("/maps/:id", (req, res) => {
@@ -35,7 +31,6 @@ module.exports = knex => {
           return res.send({ error: "not found" });
         }
       });
-    // console.log(req.params.id);
   });
 
   router.get("/points/:id", (req, res) => {
@@ -58,14 +53,12 @@ module.exports = knex => {
         longitude: -123.116226,
         latitude: 49.246292
       })
-      // catch((err) => console.log(err)).
       .then(function(id) {
         console.log("id=", id);
         console.log("typeof id=", typeof id);
         res.json(id);
       });
-    // console.log('mapname='+req.body.mapname);
-    // res.send('created');
+
   })
 
   // Insert a point into current map
@@ -95,7 +88,6 @@ module.exports = knex => {
           })
         }
       });
-    // console.log(req.body);
   })
 
   // Load profile page
@@ -107,15 +99,8 @@ module.exports = knex => {
     const userPoints = knex.select("*").from("points");
     const favMaps = knex('maps').distinct().innerJoin('fav_maps','maps.id', 'fav_maps.maps_id').where('fav_maps.users_id', req.session.user_id);
     Promise.all([userMaps, userPoints, favMaps]).then(results => {
-      // const maps = results[0];
-      // const points = results[1];
       res.send(results);
     });
-    // .then((results) => {
-    //   res.render("profile", results);
-    //   res.json(results);
-    //   console.log(results);
-    // })
   });
 
   // Edit points

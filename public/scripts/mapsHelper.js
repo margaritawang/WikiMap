@@ -41,7 +41,6 @@ function loadMap() {
 
 // filter points within a specific map
 function filterPoints(points) {
-  // console.log(mapid);
   for (var i in points) {
     addMarker({
       coords: {
@@ -138,17 +137,17 @@ function likeMap(mapInfo) {
 //add a marker on the map
 function addMarker(props){
   infoWindow = new google.maps.InfoWindow();
-  
+
   var marker = new google.maps.Marker({
     position: props.coords,
     map: map
   });
 
   google.maps.event.addListener(marker, 'click', function(){
-    infoWindow.setContent(props.content); 
-    infoWindow.open(map,this); 
+    infoWindow.setContent(props.content);
+    infoWindow.open(map,this);
   });
-  
+
   markers.push(marker);
 }
 
@@ -190,7 +189,6 @@ function addMarkerOnMap(mapid) {
       var infoWindow = new google.maps.InfoWindow({
         content:`<h3>${title}</h3><p>${description}</p>`
       })
-      console.log(point);
       return point;
     });
 

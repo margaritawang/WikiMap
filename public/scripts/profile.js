@@ -48,7 +48,6 @@ $(document).ready(function() {
 
   // filter points within a specific map
   function filterPoints(points) {
-    // console.log(mapid);
     for (var i in points) {
       addMarker({
         coords: {

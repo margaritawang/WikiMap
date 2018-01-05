@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  
+
   loadMap();
 
   var currentMap;
@@ -42,8 +42,6 @@ $(document).ready(function() {
     event.preventDefault();
     if (!$('.login').data().user) {
       alert('Please log in First!');
-    // } else if ($(this).data().state === true) {
-      // alert('You have already liked this map!');
     } else {
       var userId = $('.login').data().user;
       var mapId = $(this).data().id;
@@ -52,9 +50,6 @@ $(document).ready(function() {
         maps_id: mapId
         }
       likeMap(mapDetail);
-      // $(this).data().state = true;
-      console.log($(this).data());
-      // console.log(mapDetail);
     }
   })
 
